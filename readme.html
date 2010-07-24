@@ -13,7 +13,7 @@
 
 <p class="first"><em>Breadcrumb Trail</em> is a plugin that displays a breadcrumb menu on your site.  Plain and simple.</p>
 
-<p class="second">How is it any better than any other breadcrumb plugin?  Well, it's probably not, to be perfectly honest.  This is just a script I've been building upon for nearly a couple of years that I usually include with my WordPress themes.  I figured I'd package it as a plugin for others to use as well.</p>
+<p class="second">How is it any better than any other breadcrumb plugin?  Well, it's probably not, to be perfectly honest.  This is just a script I've been building upon for several years that I usually include with my WordPress themes.  I figured I'd package it as a plugin for others to use as well.</p>
 
 <h2>How to install the plugin</h2>
 
@@ -42,6 +42,7 @@
 	'after' => false,
 	'front_page' => true,
 	'show_home' => __('Home', 'breadcrumb_trail'),
+	'singular_{$post_type}_taxonomy' => false,
 	'echo' => true,
 );</code></pre>
 
@@ -54,6 +55,8 @@
 	<dd>What should be shown after the trail.</dd>
 	<dt>show_home</dt>
 	<dd>The text for the home link.  Set to <code>false</code> if no home link is needed.</dd>
+	<dt>singular_{$post_type}_taxonomy</dt>
+	<dd>A taxonomy to use as part of the leading trail on singular views of specific post types.</dd>
 	<dt>echo</dt>
 	<dd>Whether to print on the screen or return for use in a function.</dd>
 </dl>
@@ -71,6 +74,10 @@
 <p>This time, we'll wrap the entire menu in brackets.</p>
 
 <pre><code>&lt;?php breadcrumb_trail( array( 'before' => '{', 'after' => '}' ) ); ?></code></pre>
+
+<p>Now, let's add post tags as part of the trail for singular posts.</p>
+
+<pre><code>&lt;?php breadcrumb_trail( array( 'singular_post_taxonomy' => 'post_tag' ) ); ?></code></pre>
 
 <p>Pretty simple stuff, right?  Just mix and match the parameters however you want.</p>
 

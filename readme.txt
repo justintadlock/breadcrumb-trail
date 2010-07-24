@@ -1,10 +1,10 @@
 === Breadcrumb Trail ===
 Contributors: greenshady
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3687060
-Tags: navigation, menu
-Requires at least: 2.8
-Tested up to: 2.9
-Stable tag: 0.2.1
+Tags: navigation, menu, breadcrumb, breadcrumbs
+Requires at least: 3.0
+Tested up to: 3.0
+Stable tag: 0.3
 
 An easy-to-use template tag for showing a breadcrumb menu on your site.
 
@@ -28,7 +28,7 @@ More detailed instructions are included in the plugin's `readme.html` file.  It 
 
 = Why was this plugin created? =
 
-I mostly develop WordPress themes.  Many of my users had a real need for a functional breadcrumb menu without having to find and test a lot of other plugins.  So, I've been developing this script for nearly two years for my theme users.
+I mostly develop WordPress themes.  Many of my users had a real need for a functional breadcrumb menu without having to find and test a lot of other plugins.  So, I've been developing this script for several years for my theme users.
 
 I finally thought it was time to release it publicly so others could enjoy the benefits of this plugin just as my theme users have been.
 
@@ -55,6 +55,14 @@ To see all methods and options, refer to the `readme.html` file included with th
 There are no screenshots for this plugin.
 
 == Changelog ==
+
+**Version 0.3**
+
+* Added more support for custom post types and taxonomies.
+* Added more support for more complex hierarchies.
+* The breadcrumb trail now recognizes more patterns with pages as part of the permalink structure of other objects.
+* All post types can have any taxonomy as the leading part of the trail.
+* Cleaned up the code.
 
 ** Version 0.2.1 **
 
