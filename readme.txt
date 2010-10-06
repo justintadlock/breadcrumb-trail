@@ -3,8 +3,8 @@ Contributors: greenshady
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3687060
 Tags: navigation, menu, breadcrumb, breadcrumbs
 Requires at least: 3.0
-Tested up to: 3.0
-Stable tag: 0.3
+Tested up to: 3.0.1
+Stable tag: 0.3.1
 
 An easy-to-use template tag for showing a breadcrumb menu on your site.
 
@@ -55,6 +55,11 @@ To see all methods and options, refer to the `readme.html` file included with th
 There are no screenshots for this plugin.
 
 == Changelog ==
+
+**Version 0.3.1**
+
+* Undefined index error fixes.
+* Fixes for trying to get a property of a non-object.
 
 **Version 0.3**
 

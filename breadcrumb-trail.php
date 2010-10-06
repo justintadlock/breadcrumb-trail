@@ -3,16 +3,16 @@
  * Plugin Name: Breadcrumb Trail
  * Plugin URI: http://justintadlock.com/archives/2009/04/05/breadcrumb-trail-wordpress-plugin
  * Description: A WordPress plugin that gives you the <code>breadcrumb_trail()</code> template tag to use anywhere in your theme to show a breadcrumb menu.
- * Version: 0.3
+ * Version: 0.3.1
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
- * A script for showing a breadcrumb menu within template files.  Use the template tag 
- * breadcrumb_trail() to get it to display.  Two filter hooks are available for developers to 
- * change the output: breadcrumb_trail_args and breadcrumb_trail.
+ * A script for showing a breadcrumb trail for any type of page.  It tries to anticipate any
+ * type of structure and display the best possible trail that matches your site's permalinks.
+ * While not perfect, it attempts to fill in the gaps left by many other breadcrumb scripts.
  *
  * @copyright 2008 - 2010
- * @version 0.3
+ * @version 0.3.1
  * @author Justin Tadlock
  * @link http://justintadlock.com/archives/2009/04/05/breadcrumb-trail-wordpress-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -48,8 +48,12 @@ function breadcrumb_trail( $args = array() ) {
 	/* Get the textdomain. */
 	$textdomain = 'breadcrumb-trail';
 
+	/* Create an empty variable for the breadcrumb. */
+	$breadcrumb = '';
+
 	/* Create an empty array for the trail. */
 	$trail = array();
+	$path = '';
 
 	/* Set up the default arguments for the breadcrumb. */
 	$defaults = array(
@@ -114,7 +118,7 @@ function breadcrumb_trail( $args = array() ) {
 
 			/* If $front has been set, add it to the $path. */
 			if ( 'post' == $post_type || 'attachment' == $post_type || ( $post_type_object->rewrite['with_front'] && $wp_rewrite->front ) )
-				$path = trailingslashit( $wp_rewrite->front );
+				$path .= trailingslashit( $wp_rewrite->front );
 
 			/* If there's a slug, add it to the $path. */
 			if ( !empty( $post_type_object->rewrite['slug'] ) )
@@ -125,16 +129,18 @@ function breadcrumb_trail( $args = array() ) {
 				$trail = array_merge( $trail, breadcrumb_trail_get_parents( '', $path ) );
 		}
 
-		/* If the post type is hierarchical or is an attachment, get its parents. */
-		if ( is_post_type_hierarchical( $post_type ) || is_attachment() )
+		/* If the post type path returns nothing and there is a parent, get its parents. */
+		if ( empty( $path ) && 0 !== $parent || 'attachment' == $post_type )
 			$trail = array_merge( $trail, breadcrumb_trail_get_parents( $parent, '' ) );
 
 		/* Display terms for specific post type taxonomy if requested. */
-		if ( $args["singular_{$post_type}_taxonomy"] && $terms = get_the_term_list( $post_id, $args["singular_{$post_type}_taxonomy"], '', ', ', '' ) )
+		if ( isset( $args["singular_{$post_type}_taxonomy"] ) && $terms = get_the_term_list( $post_id, $args["singular_{$post_type}_taxonomy"], '', ', ', '' ) )
 			$trail[] = $terms;
 
 		/* End with the post title. */
-		$trail['trail_end'] = get_the_title();
+		$post_title = get_the_title();
+		if ( !empty( $post_title ) )
+			$trail['trail_end'] = $post_title;
 	}
 
 	/* If we're viewing any type of archive. */
@@ -217,7 +223,7 @@ function breadcrumb_trail( $args = array() ) {
 
 			elseif ( get_query_var( 'w' ) ) {
 				$trail[] = '<a href="' . get_year_link( get_the_time( __( 'Y', $textdomain ) ) ) . '" title="' . get_the_time( __( 'Y', $textdomain ) ) . '">' . get_the_time( __( 'Y', $textdomain ) ) . '</a>';
-				$trail['trail_end'] = sprintf( __( 'Week %1$s', 'hybrid' ), get_the_time( __( 'W', $textdomain ) ) );
+				$trail['trail_end'] = sprintf( __( 'Week %1$s', $textdomain ), get_the_time( __( 'W', $textdomain ) ) );
 			}
 
 			elseif ( is_month() ) {
@@ -277,7 +283,8 @@ function breadcrumb_trail_get_parents( $post_id = '', $path = '' ) {
 
 	if ( empty( $post_id ) ) {
 		$parent_page = get_page_by_path( $path );
-		$post_id = $parent_page->ID;
+		if ( !empty( $parent_page ) )
+			$post_id = $parent_page->ID;
 	}
 
 	if ( $post_id == 0 ) {
@@ -289,12 +296,14 @@ function breadcrumb_trail_get_parents( $post_id = '', $path = '' ) {
 
 			foreach ( $matches as $match ) {
 
-				$path = str_replace( $match[0], '', $path );
-				$parent_page = get_page_by_path( trim( $path, '/' ) );
+				if ( isset( $match[0] ) ) {
+					$path = str_replace( $match[0], '', $path );
+					$parent_page = get_page_by_path( trim( $path, '/' ) );
 
-				if ( $parent_page->ID > 0 ) {
-					$post_id = $parent_page->ID;
-					break;
+					if ( !empty( $parent_page ) && $parent_page->ID > 0 ) {
+						$post_id = $parent_page->ID;
+						break;
+					}
 				}
 			}
 		}
@@ -306,7 +315,7 @@ function breadcrumb_trail_get_parents( $post_id = '', $path = '' ) {
 		$post_id = $page->post_parent;
 	}
 
-	if ( $parents )
+	if ( isset( $parents ) )
 		$trail = array_reverse( $parents );
 
 	return $trail;
