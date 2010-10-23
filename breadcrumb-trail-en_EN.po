@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumb Trail WordPress Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-23 20:00+0900\n"
+"POT-Creation-Date: 2010-10-24 09:26-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Justin Tadlock <justin@justintadlock.com>\n"
 "Language-Team:  <justin@justintadlock.com>\n"
@@ -15,67 +15,62 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: breadcrumb-trail.php:56
+#: breadcrumb-trail.php:55
 msgid "Browse:"
 msgstr ""
 
-#: breadcrumb-trail.php:59
+#: breadcrumb-trail.php:58
 msgid "Home"
 msgstr ""
 
-#: breadcrumb-trail.php:146
+#: breadcrumb-trail.php:219
 msgid "g:i a"
 msgstr ""
 
-#: breadcrumb-trail.php:149
+#: breadcrumb-trail.php:222
 #, php-format
 msgid "Minute %1$s"
 msgstr ""
 
-#: breadcrumb-trail.php:149
+#: breadcrumb-trail.php:222
 msgid "i"
 msgstr ""
 
-#: breadcrumb-trail.php:152
+#: breadcrumb-trail.php:225
 msgid "g a"
 msgstr ""
 
-#: breadcrumb-trail.php:158
-#: breadcrumb-trail.php:159
-#: breadcrumb-trail.php:164
-#: breadcrumb-trail.php:169
-#: breadcrumb-trail.php:174
+#: breadcrumb-trail.php:236
+#: breadcrumb-trail.php:242
+#: breadcrumb-trail.php:247
+#: breadcrumb-trail.php:252
 msgid "Y"
 msgstr ""
 
-#: breadcrumb-trail.php:159
-msgid "m"
-msgstr ""
-
-#: breadcrumb-trail.php:159
-#: breadcrumb-trail.php:170
+#: breadcrumb-trail.php:237
+#: breadcrumb-trail.php:248
 msgid "F"
 msgstr ""
 
-#: breadcrumb-trail.php:160
+#: breadcrumb-trail.php:238
 msgid "j"
 msgstr ""
 
-#: breadcrumb-trail.php:165
+#: breadcrumb-trail.php:243
 #, php-format
 msgid "Week %1$s"
 msgstr ""
 
-#: breadcrumb-trail.php:165
+#: breadcrumb-trail.php:243
 msgid "W"
 msgstr ""
 
-#: breadcrumb-trail.php:180
+#: breadcrumb-trail.php:259
 #, php-format
 msgid "Search results for &quot;%1$s&quot;"
 msgstr ""
 
-#: breadcrumb-trail.php:183
+#: breadcrumb-trail.php:263
 msgid "404 Not Found"
 msgstr ""
 

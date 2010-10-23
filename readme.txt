@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: navigation, menu, breadcrumb, breadcrumbs
 Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 
 An easy-to-use template tag for showing a breadcrumb menu on your site.
 
@@ -55,6 +55,17 @@ To see all methods and options, refer to the `readme.html` file included with th
 There are no screenshots for this plugin.
 
 == Changelog ==
+
+**Version 0.3.1**
+
+* Smarter logic in certain areas.
+* Removed localization for things that shouldn't be localized with time formats.
+* `single_tax` set to `null` instead of `false`.
+* Better escaping of element attributes.
+* Use `$wp_query->get_queried_object()` and `$wp_query->get_queried_object_id()`.
+* Add in initial support of WordPress 3.1's post type archives.
+* Better formatting and organization of the output late in the function.
+* Added `trail-before` and `trail-after` CSS classes if `$before` or `$after` is set.
 
 **Version 0.3.1**
 
