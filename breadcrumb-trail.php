@@ -29,6 +29,16 @@
  */
 
 /**
+ * Yes, we're localizing the plugin.  This partly makes sure non-English
+ * users can use it too.  To translate into your language use the
+ * en_EN.po file as as guide.  Poedit is a good tool to for translating.
+ * @link http://poedit.net
+ *
+ * @since 0.1
+ */
+load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail' );
+
+/**
  * Shows a breadcrumb for all types of pages.  Themes and plugins can filter $args or input directly.  
  * Allow filtering of only the $args using get_the_breadcrumb_args.
  *
