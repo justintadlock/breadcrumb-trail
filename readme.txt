@@ -2,9 +2,9 @@
 Contributors: greenshady
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3687060
 Tags: navigation, menu, breadcrumb, breadcrumbs
-Requires at least: 3.0
-Tested up to: 3.0.1
-Stable tag: 0.3.2
+Requires at least: 3.1
+Tested up to: 3.1
+Stable tag: 0.4
 
 An easy-to-use template tag for showing a breadcrumb menu on your site.
 
@@ -55,6 +55,14 @@ To see all methods and options, refer to the `readme.html` file included with th
 There are no screenshots for this plugin.
 
 == Changelog ==
+
+**Version 0.4.0**
+
+* New function: `breadcrumb_trail_get_items()`, which grabs a list of all the trail items.  This separates the items from the main `breadcrumb_trail()` function.
+* New filter hook: `breadcrumb_trail_items`, which allows devs to filter just the items.
+* New function: `breadcrumb_trail_map_rewrite_tags()`, which maps the permalink structure tags set under Permalink Settings in the admin to make for a much more accurate breadcrumb trail.
+* New function: `breadcrumb_trail_textdomain()`, which can be filtered when integrating the plugin into a theme to match the theme's textdomain.
+* Added functionality to handle WP 3.1 post type enhancements.
 
 **Version 0.3.1**
 

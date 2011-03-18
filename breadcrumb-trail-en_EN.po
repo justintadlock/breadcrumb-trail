@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumb Trail WordPress Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-24 09:26-0600\n"
+"POT-Creation-Date: 2011-03-19 15:52-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Justin Tadlock <justin@justintadlock.com>\n"
 "Language-Team:  <justin@justintadlock.com>\n"
@@ -15,62 +15,73 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: breadcrumb-trail.php:55
+#: breadcrumb-trail.php:62
 msgid "Browse:"
 msgstr ""
 
-#: breadcrumb-trail.php:58
+#: breadcrumb-trail.php:65
 msgid "Home"
 msgstr ""
 
-#: breadcrumb-trail.php:219
+#: breadcrumb-trail.php:314
 msgid "g:i a"
 msgstr ""
 
-#: breadcrumb-trail.php:222
+#: breadcrumb-trail.php:317
 #, php-format
 msgid "Minute %1$s"
 msgstr ""
 
-#: breadcrumb-trail.php:222
+#: breadcrumb-trail.php:317
 msgid "i"
 msgstr ""
 
-#: breadcrumb-trail.php:225
+#: breadcrumb-trail.php:320
 msgid "g a"
 msgstr ""
 
-#: breadcrumb-trail.php:236
-#: breadcrumb-trail.php:242
-#: breadcrumb-trail.php:247
-#: breadcrumb-trail.php:252
+#: breadcrumb-trail.php:331
+#: breadcrumb-trail.php:337
+#: breadcrumb-trail.php:342
+#: breadcrumb-trail.php:347
+#: breadcrumb-trail.php:411
 msgid "Y"
 msgstr ""
 
-#: breadcrumb-trail.php:237
-#: breadcrumb-trail.php:248
+#: breadcrumb-trail.php:332
+#: breadcrumb-trail.php:343
+#: breadcrumb-trail.php:415
 msgid "F"
 msgstr ""
 
-#: breadcrumb-trail.php:238
-msgid "j"
+#: breadcrumb-trail.php:333
+#: breadcrumb-trail.php:419
+msgid "d"
 msgstr ""
 
-#: breadcrumb-trail.php:243
+#: breadcrumb-trail.php:338
 #, php-format
 msgid "Week %1$s"
 msgstr ""
 
-#: breadcrumb-trail.php:243
+#: breadcrumb-trail.php:338
 msgid "W"
 msgstr ""
 
-#: breadcrumb-trail.php:259
+#: breadcrumb-trail.php:354
 #, php-format
 msgid "Search results for &quot;%1$s&quot;"
 msgstr ""
 
-#: breadcrumb-trail.php:263
+#: breadcrumb-trail.php:358
 msgid "404 Not Found"
+msgstr ""
+
+#: breadcrumb-trail.php:415
+msgid "F Y"
+msgstr ""
+
+#: breadcrumb-trail.php:419
+msgid "F j, Y"
 msgstr ""
 
