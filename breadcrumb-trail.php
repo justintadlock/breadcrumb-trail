@@ -3,7 +3,7 @@
  * Plugin Name: Breadcrumb Trail
  * Plugin URI: http://justintadlock.com/archives/2009/04/05/breadcrumb-trail-wordpress-plugin
  * Description: A WordPress plugin that gives you the <code>breadcrumb_trail()</code> template tag to use anywhere in your theme to show a breadcrumb menu.
- * Version: 0.4
+ * Version: 0.4.1
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -21,9 +21,9 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package BreadcrumbTrail
- * @version 0.4.0
+ * @version 0.4.1
  * @author Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2008 - 2010, Justin Tadlock
+ * @copyright Copyright (c) 2008 - 2011, Justin Tadlock
  * @link http://justintadlock.com/archives/2009/04/05/breadcrumb-trail-wordpress-plugin
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -48,7 +48,6 @@ load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail' );
  * @return string Output of the breadcrumb menu.
  */
 function breadcrumb_trail( $args = array() ) {
-	global $wp_query;
 
 	/* Get the textdomain. */
 	$textdomain = breadcrumb_trail_textdomain();
@@ -67,8 +66,10 @@ function breadcrumb_trail( $args = array() ) {
 	);
 
 	/* Allow singular post views to have a taxonomy's terms prefixing the trail. */
-	if ( is_singular() )
-		$defaults["singular_{$wp_query->post->post_type}_taxonomy"] = false;
+	if ( is_singular() ) {
+		$post = get_queried_object();
+		$defaults["singular_{$post->post_type}_taxonomy"] = false;
+	}
 
 	/* Apply filters to the arguments. */
 	$args = apply_filters( 'breadcrumb_trail_args', $args );
@@ -106,7 +107,7 @@ function breadcrumb_trail( $args = array() ) {
 	}
 
 	/* Allow developers to filter the breadcrumb trail HTML. */
-	$breadcrumb = apply_filters( 'breadcrumb_trail', $breadcrumb );
+	$breadcrumb = apply_filters( 'breadcrumb_trail', $breadcrumb, $args );
 
 	/* Output the breadcrumb. */
 	if ( $args['echo'] )
@@ -126,7 +127,7 @@ function breadcrumb_trail( $args = array() ) {
  * @return array List of items to be shown in the trail.
  */
 function breadcrumb_trail_get_items( $args = array() ) {
-	global $wp_query, $wp_rewrite;
+	global $wp_rewrite;
 
 	/* Get the textdomain. */
 	$textdomain = breadcrumb_trail_textdomain();
@@ -147,7 +148,7 @@ function breadcrumb_trail_get_items( $args = array() ) {
 
 	/* If viewing the "home"/posts page. */
 	elseif ( is_home() ) {
-		$home_page = get_page( $wp_query->get_queried_object_id() );
+		$home_page = get_page( get_queried_object_id() );
 		$trail = array_merge( $trail, breadcrumb_trail_get_parents( $home_page->post_parent, '' ) );
 		$trail['trail_end'] = get_the_title( $home_page->ID );
 	}
@@ -156,8 +157,8 @@ function breadcrumb_trail_get_items( $args = array() ) {
 	elseif ( is_singular() ) {
 
 		/* Get singular post variables needed. */
-		$post = $wp_query->get_queried_object();
-		$post_id = absint( $wp_query->get_queried_object_id() );
+		$post = get_queried_object();
+		$post_id = absint( get_queried_object_id() );
 		$post_type = $post->post_type;
 		$parent = absint( $post->post_parent );
 
@@ -175,7 +176,7 @@ function breadcrumb_trail_get_items( $args = array() ) {
 				$trail = array_merge( $trail, breadcrumb_trail_get_parents( '', $path ) );
 
 			/* Map the permalink structure tags to actual links. */
-			$trail = array_merge( $trail, breadcrumb_trail_map_rewrite_tags( $post_id, get_option( 'permalink_structure' ) ) );
+			$trail = array_merge( $trail, breadcrumb_trail_map_rewrite_tags( $post_id, get_option( 'permalink_structure' ), $args ) );
 		}
 
 		/* If viewing a singular 'attachment'. */
@@ -189,7 +190,7 @@ function breadcrumb_trail_get_items( $args = array() ) {
 				$trail = array_merge( $trail, breadcrumb_trail_get_parents( '', $path ) );
 
 			/* Map the post (parent) permalink structure tags to actual links. */
-			$trail = array_merge( $trail, breadcrumb_trail_map_rewrite_tags( $post->post_parent, get_option( 'permalink_structure' ) ) );
+			$trail = array_merge( $trail, breadcrumb_trail_map_rewrite_tags( $post->post_parent, get_option( 'permalink_structure' ), $args ) );
 		}
 
 		/* If a custom post type, check if there are any pages in its hierarchy based on the slug. */
@@ -208,7 +209,7 @@ function breadcrumb_trail_get_items( $args = array() ) {
 				$trail = array_merge( $trail, breadcrumb_trail_get_parents( '', $path ) );
 
 			/* If there's an archive page, add it to the trail. */
-			if ( !empty( $post_type_object->rewrite['archive'] ) && function_exists( 'get_post_type_archive_link' ) )
+			if ( !empty( $post_type_object->has_archive ) )
 				$trail[] = '<a href="' . get_post_type_archive_link( $post_type ) . '" title="' . esc_attr( $post_type_object->labels->name ) . '">' . $post_type_object->labels->name . '</a>';
 		}
 
@@ -237,7 +238,7 @@ function breadcrumb_trail_get_items( $args = array() ) {
 		if ( is_tax() || is_category() || is_tag() ) {
 
 			/* Get some taxonomy and term variables. */
-			$term = $wp_query->get_queried_object();
+			$term = get_queried_object();
 			$taxonomy = get_taxonomy( $term->taxonomy );
 
 			/* Get the path to the term archive. Use this to determine if a page is present with it. */
@@ -260,14 +261,11 @@ function breadcrumb_trail_get_items( $args = array() ) {
 				$trail = array_merge( $trail, breadcrumb_trail_get_term_parents( $term->parent, $term->taxonomy ) );
 
 			/* Add the term name to the trail end. */
-			if ( function_exists( 'single_term_title' ) )
-				$trail['trail_end'] = single_term_title( '', false );
-			else
-				$trail['trail_end'] = $term->name;
+			$trail['trail_end'] = single_term_title( '', false );
 		}
 
 		/* If viewing a post type archive. */
-		elseif ( function_exists( 'is_post_type_archive' ) && is_post_type_archive() ) {
+		elseif ( is_post_type_archive() ) {
 
 			/* Get the post type object. */
 			$post_type_object = get_post_type_object( get_query_var( 'post_type' ) );
@@ -277,8 +275,8 @@ function breadcrumb_trail_get_items( $args = array() ) {
 				$path .= trailingslashit( $wp_rewrite->front );
 
 			/* If there's a slug, add it to the $path. */
-			if ( !empty( $post_type_object->rewrite['archive'] ) )
-				$path .= $post_type_object->rewrite['archive'];
+			if ( !empty( $post_type_object->rewrite['slug'] ) )
+				$path .= $post_type_object->rewrite['slug'];
 
 			/* If there's a path, check for parents. */
 			if ( !empty( $path ) )
@@ -358,7 +356,7 @@ function breadcrumb_trail_get_items( $args = array() ) {
 		$trail['trail_end'] = __( '404 Not Found', $textdomain );
 
 	/* Allow devs to step in and filter the $trail array. */
-	return apply_filters( 'breadcrumb_trail_items', $trail );
+	return apply_filters( 'breadcrumb_trail_items', $trail, $args );
 }
 
 /**
@@ -370,9 +368,10 @@ function breadcrumb_trail_get_items( $args = array() ) {
  * @since 0.4.0
  * @param int $post_id ID of the post whose parents we want.
  * @param string $path Path of a potential parent page.
+ * @param array $args Mixed arguments for the menu.
  * @return array $trail Array of links to the post breadcrumb.
  */
-function breadcrumb_trail_map_rewrite_tags( $post_id = '', $path = '' ) {
+function breadcrumb_trail_map_rewrite_tags( $post_id = '', $path = '', $args = array() ) {
 
 	/* Set up an empty $trail array. */
 	$trail = array();
@@ -423,7 +422,7 @@ function breadcrumb_trail_map_rewrite_tags( $post_id = '', $path = '' ) {
 				$trail[] = '<a href="' . get_author_posts_url( $post->post_author ) . '" title="' . esc_attr( get_the_author_meta( 'display_name', $post->post_author ) ) . '">' . get_the_author_meta( 'display_name', $post->post_author ) . '</a>';
 
 			/* If using the %category% tag, add a link to the first category archive to match permalinks. */
-			elseif ( '%category%' == $tag ) {
+			elseif ( '%category%' == $tag && 'category' !== $args["singular_{$post->post_type}_taxonomy"] ) {
 
 				/* Get the post categories. */
 				$terms = get_the_category( $post_id );
@@ -464,6 +463,9 @@ function breadcrumb_trail_get_parents( $post_id = '', $path = '' ) {
 
 	/* Set up an empty trail array. */
 	$trail = array();
+
+	/* Trim '/' off $path in case we just got a simple '/' instead of a real path. */
+	$path = trim( $path, '/' );
 
 	/* If neither a post ID nor path set, return an empty array. */
 	if ( empty( $post_id ) && empty( $path ) )

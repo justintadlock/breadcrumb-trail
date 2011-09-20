@@ -3,8 +3,8 @@ Contributors: greenshady
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3687060
 Tags: navigation, menu, breadcrumb, breadcrumbs
 Requires at least: 3.1
-Tested up to: 3.1
-Stable tag: 0.4
+Tested up to: 3.2.1
+Stable tag: 0.4.1
 
 An easy-to-use template tag for showing a breadcrumb menu on your site.
 
@@ -55,6 +55,11 @@ To see all methods and options, refer to the `readme.html` file included with th
 There are no screenshots for this plugin.
 
 == Changelog ==
+
+**Version 0.4.1**
+
+* Use `get_queried_object()` and `get_queried_object_id()` instead of accessing `$wp_query` directly.
+* Pass `$args` as second parameter in `breadcrumb_trail` hook.
 
 **Version 0.4.0**
 
