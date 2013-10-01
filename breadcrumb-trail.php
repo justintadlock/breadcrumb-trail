@@ -8,15 +8,8 @@
  * Author URI: http://justintadlock.com
  */
 
-/**
- * Yes, we're localizing the plugin.  This partly makes sure non-English users can use it too.  
- * To translate into your language use the breadcrumb-trail-en_EN.po file as as guide.  Poedit 
- * is a good tool to for translating.
- * @link http://poedit.net
- *
- * @since 0.1.0
- */
-load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail' );
+/* Load translation files. Note: Remove this line if packaging with a theme. */
+load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail/languages' );
 
 /**
  * Breadcrumb Trail - A breadcrumb menu script for WordPress.
