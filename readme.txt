@@ -1,67 +1,106 @@
 === Breadcrumb Trail ===
-Contributors: greenshady
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3687060
-Tags: navigation, menu, breadcrumb, breadcrumbs
-Requires at least: 3.1
-Tested up to: 3.2.1
-Stable tag: 0.4.1
 
-An easy-to-use template tag for showing a breadcrumb menu on your site.
+Contributors: greenshady
+Donate link: http://themehybrid.com/donate
+Tags: navigation, menu, breadcrumb, breadcrumbs
+Requires at least: 3.6
+Tested up to: 3.7
+Stable tag: 0.6.0
+
+A powerful script for adding breadcrumbs to your site that supports Schema.org HTML5-valid microdata.
 
 == Description ==
 
-*Breadcrumb Trail* is a plugin that was designed to make it easy to add a breadcrumb menu anywhere you want in your theme.
+Breadcrumb Trail is one of the most advanced and robust breadcrumb menu systems available for WordPress.  It started out as a small script for basic blogs but has grown into a system that can handle nearly any site's setup to show the most accurate breadcrumbs for each page.
 
-How is it any better than any other breadcrumb plugin?  Well, it's probably not, to be perfectly honest.  This is just a script I've been building upon for nearly a couple of years that I usually include with my WordPress themes.  I figured I'd package it as a plugin for others to use as well.
+### How it works ###
 
-It gives you a new template tag called `breadcrumb_trail()` that you can place anywhere in your template files.
+This plugin automatically detects your permalink setup and displays breadcrumbs based off that structure.  All sites have some sort of hierarchy.  Breadcrumb Trail recognizes that and builds a set of unique breadcrumbs for each page on your site.
+
+This means that it can also detect custom post types and taxonomies right out of the box.  Whatever you throw at it, it's got a solution.
+
+### Features ###
+
+* 5+ years of development and user testing.
+* Auto-detects the permalink structure of your site for the most accurate breadcrumbs.
+* Hooks for plugin/theme developers to overwrite output.
+* Coded with object-oriented programming (OOP) methods to allow developers to extend it for those highly-custom setups.
+
+### Professional support ###
+
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/support), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 40,000+ users (and growing).
 
 == Installation ==
 
 1. Upload `breadcrumb-trail` to the `/wp-content/plugins/` directory.
-1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Add the appropriate code to your template files as outlined in the `readme.html` file.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Add the `breadcrumb_trail()` template tag to your theme.
 
-More detailed instructions are included in the plugin's `readme.html` file.  It is important to read through that file to properly understand all of the options and how the plugin works.
+More detailed instructions are included in the plugin's `readme.md` file.
 
 == Frequently Asked Questions ==
 
-= Why was this plugin created? =
+### Why was this plugin created? ###
 
-I mostly develop WordPress themes.  Many of my users had a real need for a functional breadcrumb menu without having to find and test a lot of other plugins.  So, I've been developing this script for several years for my theme users.
+Many of my theme users had a real need for a functional breadcrumb menu without having to find and test a lot of other plugins.  Therefore, I created a breadcrumbs script for those users.  Eventually, I decided to package it as a plugin and share it with others.
 
-I finally thought it was time to release it publicly so others could enjoy the benefits of this plugin just as my theme users have been.
+The plugin is still mostly packaged with themes and is currently being used on millions of WordPress sites.
 
-= What's a breadcrumb menu? =
+### What's a breadcrumb menu? ###
 
 Basically, it's a navigational tool.  On many sites, you'll see something that looks like this:
 
-`You are here > Home > Archives > Sub-page`
+	You are here: Home > Page > Sub-page > Sub-sub-page
 
-This plugin allows you to easily add this to your site.
+This plugin allows you to easily add this type of menu your site.
 
-= How do I add it to my theme? =
+### How do I add it to my theme? ###
 
-There are several methods, but in general, you would use this call:
+There are several methods, but in general, you would add the following line of code to your theme.  Generally, this goes somewhere near the bottom of your theme's `header.php` template.  However, you can add it anywhere you want in your theme, and it should work.
 
-`
-<?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
-`
+	<?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
 
-To see all methods and options, refer to the `readme.html` file included with the plugin download.
+To see all methods and options, refer to the `readme.md` file included with the plugin download.
+
+### Do breadcrumbs show in Google search results? ###
+
+Yes, breadcrumbs *can* show in Google search results.  The breadcrumbs are coded in a way that all of the major search engines should be able to recognize them.  It is marked up with the appropriate Schema.org properties to make it easier for search engines and other systems to understand.
+
+With that said, it's still left up to the search provider to actually show the breadcrumbs.  Generally, they do show them.
+
+Don't expect to see breadcrumbs in your search results on the first day either.  It may take a bit, depending on how often your Web site is crawled.
+
+### What is Schema.org? Microdata? ###
+
+[Microdata](http://en.wikipedia.org/wiki/Microdata_(HTML)) is a way to nest metadata into your Web site's pages.  It allows things like search engines and browsers to provide a more useful experience for users.  Microdata provides a way for you to describe the "meaning" (i.e., semantics) of specific items on your site by using a standardized vocabulary.
+
+[Schema.org](http://schema.org) is a microdata vocabulary.  It is a collaboration by Bing, Google, Yahoo!, and Yandex for creating a set of standardized conventions for using microdata on the Web.  With these standards in place, we can make our Web sites' data more understandable to search engines and browsers while providing a richer experience for users.
+
+### Does this help with SEO? ###
+
+Well, it doesn't hurt.  The way I see it, the more meaningful information you provide to search engines, the more likely you are to rank up.  Properly-coded breadcrumbs are just one tool in a gigantic toolbox for building a search-engine optimized site.
+
+### The breadcrumbs display the wrong data! ###
+
+This is rare, especially if you put the code in your header template.  However, it can happen on occasion when your theme or another plugin messes with some of WordPress' global variables but doesn't set things back properly after doing whatever it is they're doing.
+
+There's not really much I can do to correct that within the Breadcrumb Trail plugin.  The only thing I could do is help you fix the theme/plugin causing the issue.  If this happens, you'll need to drop by my [support forums](http://themehybrid.com/support) to get help.
 
 == Screenshots ==
 
-There are no screenshots for this plugin.
+1. Breadcrumbs in Google search results.
+2. Date-based permalink structure in breadcrumbs.
+3. Custom post type + taxonomy (portfolio).
+4. Image attachment of a blog post.
 
 == Changelog ==
 
-**Version 0.4.1**
+### Version 0.4.1 ###
 
 * Use `get_queried_object()` and `get_queried_object_id()` instead of accessing `$wp_query` directly.
 * Pass `$args` as second parameter in `breadcrumb_trail` hook.
 
-**Version 0.4.0**
+### Version 0.4.0 ###
 
 * New function: `breadcrumb_trail_get_items()`, which grabs a list of all the trail items.  This separates the items from the main `breadcrumb_trail()` function.
 * New filter hook: `breadcrumb_trail_items`, which allows devs to filter just the items.
@@ -69,7 +108,7 @@ There are no screenshots for this plugin.
 * New function: `breadcrumb_trail_textdomain()`, which can be filtered when integrating the plugin into a theme to match the theme's textdomain.
 * Added functionality to handle WP 3.1 post type enhancements.
 
-**Version 0.3.1**
+### Version 0.3.1 ###
 
 * Smarter logic in certain areas.
 * Removed localization for things that shouldn't be localized with time formats.
@@ -80,12 +119,12 @@ There are no screenshots for this plugin.
 * Better formatting and organization of the output late in the function.
 * Added `trail-before` and `trail-after` CSS classes if `$before` or `$after` is set.
 
-**Version 0.3.1**
+### Version 0.3.1 ###
 
 * Undefined index error fixes.
 * Fixes for trying to get a property of a non-object.
 
-**Version 0.3**
+### Version 0.3.0 ###
 
 * Added more support for custom post types and taxonomies.
 * Added more support for more complex hierarchies.
@@ -93,15 +132,15 @@ There are no screenshots for this plugin.
 * All post types can have any taxonomy as the leading part of the trail.
 * Cleaned up the code.
 
-** Version 0.2.1 **
+### Version 0.2.1 ###
 
 * Removed and/or added (depending on the case) the extra separator item on sub-categories and date-/time-based breadcrumbs.
 
-** Version 0.2 **
+### Version 0.2.0 ###
 
 * The title of the "home" page (i.e. posts page) when not the front page is now properly recognized.
 * Cleaned up the code and logic behind the plugin.
 
-**Version 0.1**
+### Version 0.1 ###
 
 * Launch of the new plugin.
