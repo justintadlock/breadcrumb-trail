@@ -2,10 +2,12 @@
 
 Contributors: greenshady
 Donate link: http://themehybrid.com/donate
-Tags: navigation, menu, breadcrumb, breadcrumbs
+Tags: navigation, menu, breadcrumb, breadcrumbs, microdata, schema
 Requires at least: 3.6
 Tested up to: 3.7
 Stable tag: 0.6.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
 A powerful script for adding breadcrumbs to your site that supports Schema.org HTML5-valid microdata.
 
@@ -15,7 +17,7 @@ Breadcrumb Trail is one of the most advanced and robust breadcrumb menu systems 
 
 ### How it works ###
 
-This plugin automatically detects your permalink setup and displays breadcrumbs based off that structure.  All sites have some sort of hierarchy.  Breadcrumb Trail recognizes that and builds a set of unique breadcrumbs for each page on your site.
+This plugin automatically detects your permalink setup and displays breadcrumbs based off that structure.  Nearly all sites have some sort of hierarchy.  Breadcrumb Trail recognizes that and builds a set of unique breadcrumbs for each page on your site.
 
 This means that it can also detect custom post types and taxonomies right out of the box.  Whatever you throw at it, it's got a solution.
 
@@ -93,7 +95,53 @@ There's not really much I can do to correct that within the Breadcrumb Trail plu
 3. Custom post type + taxonomy (portfolio).
 4. Image attachment of a blog post.
 
+== Upgrade Notice ==
+
+### Version 0.6.0+ ###
+
+If upgrading to a version earlier than 0.6.0 to 0.6.0+, you should check the `readme.md` documentation on some of the argument changes if you've been padding custom arguments into the `breadcrumb_trail()` function.
+
 == Changelog ==
+
+### Version 0.6.0 ###
+
+* [Schema.org](http://schema.org) support.
+* Completely overhauled the entire plugin, rewriting large swathes of code from the ground up.  This version takes an object-oriented approach.
+* Blew every other breadcrumb menu script out of the water.
+
+### Version 0.5.3 ###
+
+#### Enhancements ####
+
+* Use `post_type_archive_title()` on post type archives in the trail.
+* Add support for taxonomies that have a `$rewrite->slug` that matches a string value for a custom post type's `has_archive` argument.
+* Added support for an `archive_title` label for custom post types because we can't use the  `post_type_archive_title()` function on single posts views for the post type.
+* Loads of pagination support on both archive-type pages and paged single posts.
+* Added support for hierarchical custom post types (get parent posts).
+* Added the `network` argument to allow multisite owners to run the trail all the way back to the main site.
+
+#### Bug fixes ####
+
+* Only check attachment trail if the attachment has a parent.
+* Fixed the issue where the wrong post type archive link matches with a term archive page.
+
+### Version 0.5.2 ###
+
+* No friggin' clue. I think I actually skipped version numbers somehow. :)
+
+### Version 0.5.1 ###
+
+* Changed license from GPL 2-only to GPL 2+.
+* Smarter handling of the `trail-begin` and `trail-end` classes.
+* Added `container` argument for wrapping breadcrumbs in a custom HTML element.
+* Changed `bbp_get_forum_parent()` to `bbp_get_forum_parent_id()`.
+
+### Version 0.5.0 ###
+
+* Use hardcoded strings for the textdomain, not a variable.
+* Inline doc updates.
+* Added bbPress support.
+* Use `single_post_title()` instead of `get_the_title()` for post titles.
 
 ### Version 0.4.1 ###
 
@@ -141,6 +189,6 @@ There's not really much I can do to correct that within the Breadcrumb Trail plu
 * The title of the "home" page (i.e. posts page) when not the front page is now properly recognized.
 * Cleaned up the code and logic behind the plugin.
 
-### Version 0.1 ###
+### Version 0.1.0 ###
 
 * Launch of the new plugin.

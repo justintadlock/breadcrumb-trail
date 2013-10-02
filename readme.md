@@ -82,7 +82,45 @@ Others are available, but those are the two you would actually put into real-wor
 
 ## Changelog ##
 
+### Version 0.6.0 ###
 
+* [Schema.org](http://schema.org) support.
+* Completely overhauled the entire plugin, rewriting large swathes of code from the ground up.  This version takes an object-oriented approach.
+* Blew every other breadcrumb menu script out of the water.
+
+### Version 0.5.3 ###
+
+#### Enhancements ####
+
+* Use `post_type_archive_title()` on post type archives in the trail.
+* Add support for taxonomies that have a `$rewrite->slug` that matches a string value for a custom post type's `has_archive` argument.
+* Added support for an `archive_title` label for custom post types because we can't use the  `post_type_archive_title()` function on single posts views for the post type.
+* Loads of pagination support on both archive-type pages and paged single posts.
+* Added support for hierarchical custom post types (get parent posts).
+* Added the `network` argument to allow multisite owners to run the trail all the way back to the main site.
+
+#### Bug fixes ####
+
+* Only check attachment trail if the attachment has a parent.
+* Fixed the issue where the wrong post type archive link matches with a term archive page.
+
+### Version 0.5.2 ###
+
+* No friggin' clue. I think I actually skipped version numbers somehow. :)
+
+### Version 0.5.1 ###
+
+* Changed license from GPL 2-only to GPL 2+.
+* Smarter handling of the `trail-begin` and `trail-end` classes.
+* Added `container` argument for wrapping breadcrumbs in a custom HTML element.
+* Changed `bbp_get_forum_parent()` to `bbp_get_forum_parent_id()`.
+
+### Version 0.5.0 ###
+
+* Use hardcoded strings for the textdomain, not a variable.
+* Inline doc updates.
+* Added bbPress support.
+* Use `single_post_title()` instead of `get_the_title()` for post titles.
 
 ### Version 0.4.1 ###
 
