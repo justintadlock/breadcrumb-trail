@@ -82,6 +82,10 @@ Others are available, but those are the two you would actually put into real-wor
 
 ## Changelog ##
 
+### Version 0.6.1 ###
+
+* Make sure `breadcrumb_trail()` can return the HTML.
+
 ### Version 0.6.0 ###
 
 * [Schema.org](http://schema.org) support.

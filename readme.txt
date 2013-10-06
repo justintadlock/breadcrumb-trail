@@ -103,6 +103,10 @@ If upgrading to a version earlier than 0.6.0 to 0.6.0+, you should check the `re
 
 == Changelog ==
 
+### Version 0.6.1 ###
+
+* Make sure `breadcrumb_trail()` can return the HTML.
+
 ### Version 0.6.0 ###
 
 * [Schema.org](http://schema.org) support.
