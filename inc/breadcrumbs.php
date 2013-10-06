@@ -15,7 +15,7 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package   BreadcrumbTrail
- * @version   0.6.0
+ * @version   0.6.1
  * @author    Justin Tadlock <justin@justintadlock.com>
  * @copyright Copyright (c) 2008 - 2013, Justin Tadlock
  * @link      http://themehybrid.com/plugins/breadcrumb-trail
@@ -38,7 +38,7 @@ function breadcrumb_trail( $args = array() ) {
 	else
 		$breadcrumb = new Breadcrumb_Trail( $args );
 
-	$breadcrumb->trail();
+	return $breadcrumb->trail();
 }
 
 /**
