@@ -85,6 +85,10 @@ Others are available, but those are the two you would actually put into real-wor
 ### Version 0.6.1 ###
 
 * Make sure `breadcrumb_trail()` can return the HTML.
+* Add `rel="home"` to the home page link. This got removed at some point.
+* Do network and site home links in bbPress.
+* Slight fix to stop bbPress from putting double "Forums" in the breadcrumb trail.
+* The `show_on_front` argument should only work if the front page is not paginated.
 
 ### Version 0.6.0 ###
 
