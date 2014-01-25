@@ -504,7 +504,7 @@ class Breadcrumb_Trail {
 		}
 
 		/* If the post type has rewrite rules. */
-		elseif ( false !== $post_type_object->rewrite ) {
+		elseif ( false !== $post_type_object->rewrite && '' != get_option( 'permalink_structure' ) ) {
 
 			/* If 'with_front' is true, add $wp_rewrite->front to the trail. */
 			if ( $post_type_object->rewrite['with_front'] )
@@ -565,7 +565,7 @@ class Breadcrumb_Trail {
 		$taxonomy = get_taxonomy( $term->taxonomy );
 
 		/* If there are rewrite rules for the taxonomy. */
-		if ( false !== $taxonomy->rewrite ) {
+		if ( false !== $taxonomy->rewrite && '' != get_option( 'permalink_structure' ) ) {
 
 			/* If 'with_front' is true, dd $wp_rewrite->front to the trail. */
 			if ( $taxonomy->rewrite['with_front'] && $wp_rewrite->front )
@@ -642,7 +642,7 @@ class Breadcrumb_Trail {
 		/* Get the post type object. */
 		$post_type_object = get_post_type_object( get_query_var( 'post_type' ) );
 
-		if ( false !== $post_type_object->rewrite ) {
+		if ( false !== $post_type_object->rewrite && '' != get_option( 'permalink_structure' ) ) {
 
 			/* If 'with_front' is true, add $wp_rewrite->front to the trail. */
 			if ( $post_type_object->rewrite['with_front'] )
