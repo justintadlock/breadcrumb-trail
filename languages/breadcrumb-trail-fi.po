@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Breadcrumb Trail WordPress Plugin\n"
+"POT-Creation-Date: 2013-10-01 08:34-0600\n"
+"PO-Revision-Date: 2014-06-22 20:37+0200\n"
+"Last-Translator: Sami Keijonen <sami.keijonen@foxnet.fi>\n"
+"Language-Team: Foxnet Themes <sami.keijonen@foxnet.fi>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.5\n"
+"X-Poedit-KeywordsList: _e;__;esc_attr_e;esc_attr__;esc_html_e;esc_html__;_n;"
+"_x;_x:1,2c;_n:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fi\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: breadcrumb-trail.php:194
+msgid "Browse:"
+msgstr "Olet täällä:"
+
+#: breadcrumb-trail.php:195
+msgid "Home"
+msgstr "Etusivu"
+
+#: breadcrumb-trail.php:196
+#, php-format
+msgid "Search results for \"%s\""
+msgstr "Hakutulokset haulle: \"%s\""
+
+#: breadcrumb-trail.php:197
+msgid "404 Not Found"
+msgstr "404 Sivua ei löytynyt"
+
+#: breadcrumb-trail.php:198
+#, php-format
+msgid "Page %d"
+msgstr "Sivu %d"
+
+#: breadcrumb-trail.php:199
+msgid "Archives"
+msgstr "Arkistot"
+
+#: breadcrumb-trail.php:200
+msgid "g:i a"
+msgstr "G:i"
+
+#: breadcrumb-trail.php:201
+#, php-format
+msgid "Minute %d"
+msgstr "Minuutti %d"
+
+#: breadcrumb-trail.php:202
+msgid "g a"
+msgstr "g a"
+
+#: breadcrumb-trail.php:203
+msgid "d"
+msgstr "d"
+
+#: breadcrumb-trail.php:204
+#, php-format
+msgid "Week %d"
+msgstr "Viikko %d"
+
+#: breadcrumb-trail.php:205
+msgid "F"
+msgstr "F"
+
+#: breadcrumb-trail.php:206 breadcrumb-trail.php:1046
+msgid "Y"
+msgstr "Y"
+
+#: breadcrumb-trail.php:1050
+msgid "F Y"
+msgstr "F Y"
+
+#: breadcrumb-trail.php:1054
+msgid "F j, Y"
+msgstr "j.m.Y"
+
+#: breadcrumb-trail.php:1141 breadcrumb-trail.php:1177
+#: breadcrumb-trail.php:1194 breadcrumb-trail.php:1225
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: breadcrumb-trail.php:1169
+msgid "Split"
+msgstr "Jaa"
+
+#: breadcrumb-trail.php:1173
+msgid "Merge"
+msgstr "Yhdistä"
