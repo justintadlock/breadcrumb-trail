@@ -6,6 +6,8 @@
  * Version: 0.6.1-alpha
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
+ * Text Domain: cleaner-gallery
+ * Domain Path: /languages
  */
 
 /* Extra check in case the script is being loaded by a theme. */
