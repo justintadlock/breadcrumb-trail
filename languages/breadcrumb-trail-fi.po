@@ -1,0 +1,137 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Breadcrumb Trail WordPress Plugin\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/breadcrumb-trail\n"
+"POT-Creation-Date: 2014-07-11 15:37:55+00:00\n"
+"PO-Revision-Date: 2014-07-11 10:40-0600\n"
+"Last-Translator: Sami Keijonen <sami.keijonen@foxnet.fi>\n"
+"Language-Team: Foxnet Themes <sami.keijonen@foxnet.fi>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _e;__;esc_attr_e;esc_attr__;esc_html_e;esc_html__;_n;"
+"_x;_x:1,2c;_n:1,2\n"
+"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: inc/breadcrumbs.php:178
+msgid "Browse:"
+msgstr "Olet täällä:"
+
+#: inc/breadcrumbs.php:179
+msgid "Home"
+msgstr "Etusivu"
+
+#: inc/breadcrumbs.php:180
+msgid "404 Not Found"
+msgstr "404 Sivua ei löytynyt"
+
+#: inc/breadcrumbs.php:181
+msgid "Archives"
+msgstr "Arkistot"
+
+#. Translators: %s is the search query. The HTML entities are opening and
+#. closing curly quotes.
+#: inc/breadcrumbs.php:183
+msgid "Search results for &#8220;%s&#8221;"
+msgstr "Hakutulokset haulle: \"%s\""
+
+#. Translators: %s is the page number.
+#: inc/breadcrumbs.php:185
+msgid "Page %s"
+msgstr "Sivu %d"
+
+#. Translators: Minute archive title. %s is the minute time format.
+#: inc/breadcrumbs.php:187
+msgid "Minute %s"
+msgstr "Minuutti %d"
+
+#. Translators: Weekly archive title. %s is the week date format.
+#: inc/breadcrumbs.php:189
+msgid "Week %s"
+msgstr "Viikko %d"
+
+#: inc/breadcrumbs.php:716
+msgctxt "minute and hour archives time format"
+msgid "g:i a"
+msgstr "G:i"
+
+#: inc/breadcrumbs.php:733
+msgctxt "minute archives time format"
+msgid "i"
+msgstr ""
+
+#: inc/breadcrumbs.php:750
+msgctxt "hour archives time format"
+msgid "g a"
+msgstr "g a"
+
+#: inc/breadcrumbs.php:766 inc/breadcrumbs.php:795 inc/breadcrumbs.php:822
+#: inc/breadcrumbs.php:849 inc/breadcrumbs.php:1036
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#: inc/breadcrumbs.php:767 inc/breadcrumbs.php:823 inc/breadcrumbs.php:1040
+msgctxt "monthly archives date format"
+msgid "F"
+msgstr "F"
+
+#: inc/breadcrumbs.php:768 inc/breadcrumbs.php:1044
+msgctxt "daily archives date format"
+msgid "j"
+msgstr ""
+
+#: inc/breadcrumbs.php:796
+msgctxt "weekly archives date format"
+msgid "W"
+msgstr ""
+
+#: inc/breadcrumbs.php:1135 inc/breadcrumbs.php:1171 inc/breadcrumbs.php:1188
+#: inc/breadcrumbs.php:1219
+msgid "Edit"
+msgstr "Muokkaa"
+
+#: inc/breadcrumbs.php:1163
+msgid "Split"
+msgstr "Jaa"
+
+#: inc/breadcrumbs.php:1167
+msgid "Merge"
+msgstr "Yhdistä"
+
+#. Plugin Name of the plugin/theme
+msgid "Breadcrumb Trail"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://themehybrid.com/plugins/breadcrumb-trail"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A smart breadcrumb menu plugin embedded with <a href=\"http://schema.org"
+"\">Schema.org</a> microdata that can handle variations in site structure "
+"more accurately than any other breadcrumb plugin for WordPress. Insert into "
+"your theme with the <code>breadcrumb_trail()</code> template tag."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Justin Tadlock"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://justintadlock.com"
+msgstr ""
+
+#~ msgid "d"
+#~ msgstr "d"
+
+#~ msgid "F Y"
+#~ msgstr "F Y"
+
+#~ msgid "F j, Y"
+#~ msgstr "j.m.Y"
