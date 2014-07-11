@@ -41,19 +41,25 @@ The `breadcrumb_trail()` function accepts a single parameter of `$args`, which i
 
 			/* Labels for text used (see Breadcrumb_Trail::default_labels). */
 			'labels' => array(
-				'browse'              => __( 'Browse:',                 'breadcrumb-trail' ),
-				'home'                => __( 'Home',                    'breadcrumb-trail' ),
-				'search'              => __( 'Search results for "%s"', 'breadcrumb-trail' ),
-				'error_404'           => __( '404 Not Found',           'breadcrumb-trail' ),
-				'paged'               => __( 'Page %d',                 'breadcrumb-trail' ),
-				'archives'            => __( 'Archives',                'breadcrumb-trail' ),
-				'archive_minute_hour' => __( 'g:i a',                   'breadcrumb-trail' ),
-				'archive_minute'      => __( 'Minute %d',               'breadcrumb-trail' ),
-				'archive_hour'        => __( 'g a',                     'breadcrumb-trail' ),
-				'archive_day'         => __( 'd',                       'breadcrumb-trail' ),
-				'archive_week'        => __( 'Week %d',                 'breadcrumb-trail' ),
-				'archive_month'       => __( 'F',                       'breadcrumb-trail' ),
-				'archive_year'        => __( 'Y',                       'breadcrumb-trail' ),
+				'browse'              => __( 'Browse:',                             'breadcrumb-trail' ),
+				'home'                => __( 'Home',                                'breadcrumb-trail' ),
+				'error_404'           => __( '404 Not Found',                       'breadcrumb-trail' ),
+				'archives'            => __( 'Archives',                            'breadcrumb-trail' ),
+				/* Translators: %s is the search query. The HTML entities are opening and closing curly quotes. */
+				'search'              => __( 'Search results for &#8220;%s&#8221;', 'breadcrumb-trail' ),
+				/* Translators: %s is the page number. */
+				'paged'               => __( 'Page %s',                             'breadcrumb-trail' ),
+				/* Translators: Minute archive title. %s is the minute time format. */
+				'archive_minute'      => __( 'Minute %s',                           'breadcrumb-trail' ),
+				/* Translators: Weekly archive title. %s is the week date format. */
+				'archive_week'        => __( 'Week %s',                             'breadcrumb-trail' ),
+	
+				/* "%s" is replaced with the translated date/time format. */
+				'archive_minute_hour' => '%s',
+				'archive_hour'        => '%s',
+				'archive_day'         => '%s',
+				'archive_month'       => '%s',
+				'archive_year'        => '%s',
 			)
 	);
 
@@ -89,6 +95,8 @@ Others are available, but those are the two you would actually put into real-wor
 * Do network and site home links in bbPress.
 * Slight fix to stop bbPress from putting double "Forums" in the breadcrumb trail.
 * The `show_on_front` argument should only work if the front page is not paginated.
+* Better handling of the text strings, particularly when displaying date/time.
+* Updated `breadcrumb-trail.pot` file for better translating.
 
 ### Version 0.6.0 ###
 

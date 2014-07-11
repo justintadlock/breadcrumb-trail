@@ -4,8 +4,7 @@ Contributors: greenshady
 Donate link: http://themehybrid.com/donate
 Tags: navigation, menu, breadcrumb, breadcrumbs, microdata, schema
 Requires at least: 3.6
-Tested up to: 3.7
-Stable tag: 0.6.0
+Stable tag: 0.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -99,7 +98,7 @@ There's not really much I can do to correct that within the Breadcrumb Trail plu
 
 ### Version 0.6.0+ ###
 
-If upgrading to a version earlier than 0.6.0 to 0.6.0+, you should check the `readme.md` documentation on some of the argument changes if you've been padding custom arguments into the `breadcrumb_trail()` function.
+If upgrading to a version earlier than 0.6.0 to 0.6.0+, you should check the `readme.md` documentation on some of the argument changes if you've been adding custom arguments into the `breadcrumb_trail()` function.
 
 == Changelog ==
 
@@ -110,6 +109,8 @@ If upgrading to a version earlier than 0.6.0 to 0.6.0+, you should check the `re
 * Do network and site home links in bbPress.
 * Slight fix to stop bbPress from putting double "Forums" in the breadcrumb trail.
 * The `show_on_front` argument should only work if the front page is not paginated.
+* Better handling of the text strings, particularly when displaying date/time.
+* Updated `breadcrumb-trail.pot` file for better translating.
 
 ### Version 0.6.0 ###
 
