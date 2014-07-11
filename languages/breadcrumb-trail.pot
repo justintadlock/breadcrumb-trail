@@ -1,93 +1,122 @@
+# Copyright (C) 2014 Breadcrumb Trail
+# This file is distributed under the same license as the Breadcrumb Trail package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Breadcrumb Trail WordPress Plugin\n"
-"POT-Creation-Date: 2013-10-01 08:34-0600\n"
-"PO-Revision-Date: 2013-10-01 08:35-0600\n"
-"Last-Translator: \n"
-"Language-Team:  <justin@justintadlock.com>\n"
-"Language: en_US\n"
+"Project-Id-Version: Breadcrumb Trail 0.6.1-alpha\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/breadcrumb-trail\n"
+"POT-Creation-Date: 2014-07-11 15:37:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
-"X-Poedit-KeywordsList: _e;__;esc_attr_e;esc_attr__;esc_html_e;esc_html__;_n;"
-"_x;_x:1,2c;_n:1,2\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: .\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: breadcrumb-trail.php:194
+#: inc/breadcrumbs.php:178
 msgid "Browse:"
 msgstr ""
 
-#: breadcrumb-trail.php:195
+#: inc/breadcrumbs.php:179
 msgid "Home"
 msgstr ""
 
-#: breadcrumb-trail.php:196
-#, php-format
-msgid "Search results for \"%s\""
-msgstr ""
-
-#: breadcrumb-trail.php:197
+#: inc/breadcrumbs.php:180
 msgid "404 Not Found"
 msgstr ""
 
-#: breadcrumb-trail.php:198
-#, php-format
-msgid "Page %d"
-msgstr ""
-
-#: breadcrumb-trail.php:199
+#: inc/breadcrumbs.php:181
 msgid "Archives"
 msgstr ""
 
-#: breadcrumb-trail.php:200
+#. Translators: %s is the search query. The HTML entities are opening and
+#. closing curly quotes.
+
+#: inc/breadcrumbs.php:183
+msgid "Search results for &#8220;%s&#8221;"
+msgstr ""
+
+#. Translators: %s is the page number.
+
+#: inc/breadcrumbs.php:185
+msgid "Page %s"
+msgstr ""
+
+#. Translators: Minute archive title. %s is the minute time format.
+
+#: inc/breadcrumbs.php:187
+msgid "Minute %s"
+msgstr ""
+
+#. Translators: Weekly archive title. %s is the week date format.
+
+#: inc/breadcrumbs.php:189
+msgid "Week %s"
+msgstr ""
+
+#: inc/breadcrumbs.php:716
+msgctxt "minute and hour archives time format"
 msgid "g:i a"
 msgstr ""
 
-#: breadcrumb-trail.php:201
-#, php-format
-msgid "Minute %d"
+#: inc/breadcrumbs.php:733
+msgctxt "minute archives time format"
+msgid "i"
 msgstr ""
 
-#: breadcrumb-trail.php:202
+#: inc/breadcrumbs.php:750
+msgctxt "hour archives time format"
 msgid "g a"
 msgstr ""
 
-#: breadcrumb-trail.php:203
-msgid "d"
-msgstr ""
-
-#: breadcrumb-trail.php:204
-#, php-format
-msgid "Week %d"
-msgstr ""
-
-#: breadcrumb-trail.php:205
-msgid "F"
-msgstr ""
-
-#: breadcrumb-trail.php:206 breadcrumb-trail.php:1046
+#: inc/breadcrumbs.php:766 inc/breadcrumbs.php:795 inc/breadcrumbs.php:822
+#: inc/breadcrumbs.php:849 inc/breadcrumbs.php:1036
+msgctxt "yearly archives date format"
 msgid "Y"
 msgstr ""
 
-#: breadcrumb-trail.php:1050
-msgid "F Y"
+#: inc/breadcrumbs.php:767 inc/breadcrumbs.php:823 inc/breadcrumbs.php:1040
+msgctxt "monthly archives date format"
+msgid "F"
 msgstr ""
 
-#: breadcrumb-trail.php:1054
-msgid "F j, Y"
+#: inc/breadcrumbs.php:768 inc/breadcrumbs.php:1044
+msgctxt "daily archives date format"
+msgid "j"
 msgstr ""
 
-#: breadcrumb-trail.php:1141 breadcrumb-trail.php:1177
-#: breadcrumb-trail.php:1194 breadcrumb-trail.php:1225
+#: inc/breadcrumbs.php:796
+msgctxt "weekly archives date format"
+msgid "W"
+msgstr ""
+
+#: inc/breadcrumbs.php:1135 inc/breadcrumbs.php:1171 inc/breadcrumbs.php:1188
+#: inc/breadcrumbs.php:1219
 msgid "Edit"
 msgstr ""
 
-#: breadcrumb-trail.php:1169
+#: inc/breadcrumbs.php:1163
 msgid "Split"
 msgstr ""
 
-#: breadcrumb-trail.php:1173
+#: inc/breadcrumbs.php:1167
 msgid "Merge"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "Breadcrumb Trail"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://themehybrid.com/plugins/breadcrumb-trail"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A smart breadcrumb menu plugin embedded with <a href=\"http://schema.org\">Schema.org</a> microdata that can handle variations in site structure more accurately than any other breadcrumb plugin for WordPress. Insert into your theme with the <code>breadcrumb_trail()</code> template tag."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Justin Tadlock"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://justintadlock.com"
 msgstr ""
