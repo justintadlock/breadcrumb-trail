@@ -144,7 +144,10 @@ class Breadcrumb_Trail {
 			array_push( $this->items, '<span class="trail-end">' . array_pop( $this->items ) . '</span>' );
 
 			/* Format the separator. */
-			$separator = ( !empty( $this->args['separator'] ) ? '<span class="sep">' . $this->args['separator'] . '</span>' : '<span class="sep">/</span>' );
+			if ( $this->args['separator'] === false )
+				$separator = null;
+			else
+				$separator = ( !empty( $this->args['separator'] ) ? '<span class="sep">' . $this->args['separator'] . '</span>' : '<span class="sep">/</span>' );
 
 			/* Join the individual trail items into a single string. */
 			$breadcrumb .= join( "\n\t\t\t {$separator} ", $this->items );
