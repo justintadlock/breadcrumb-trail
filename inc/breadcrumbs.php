@@ -571,6 +571,9 @@ class Breadcrumb_Trail {
 
 		/* Get some taxonomy and term variables. */
 		$term     = get_queried_object();
+
+		if ( ! $term ) return;
+		
 		$taxonomy = get_taxonomy( $term->taxonomy );
 
 		/* If there are rewrite rules for the taxonomy. */
