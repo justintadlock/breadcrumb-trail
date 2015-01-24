@@ -15,9 +15,9 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @package   BreadcrumbTrail
- * @version   0.6.1
+ * @version   1.0.0
  * @author    Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2008 - 2013, Justin Tadlock
+ * @copyright Copyright (c) 2008 - 2014, Justin Tadlock
  * @link      http://themehybrid.com/plugins/breadcrumb-trail
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
@@ -33,9 +33,12 @@
  */
 function breadcrumb_trail( $args = array() ) {
 
-	if ( function_exists( 'is_bbpress' ) && is_bbpress() )
+	$breadcrumb = apply_filters( 'breadcrumb_trail_object', null, $args );
+
+	if ( !is_object( $breadcrumb ) && function_exists( 'is_bbpress' ) && is_bbpress() )
 		$breadcrumb = new bbPress_Breadcrumb_Trail( $args );
-	else
+
+	elseif ( !is_object( $breadcrumb ) )
 		$breadcrumb = new Breadcrumb_Trail( $args );
 
 	return $breadcrumb->trail();
