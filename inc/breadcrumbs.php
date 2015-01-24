@@ -430,7 +430,7 @@ class Breadcrumb_Trail {
 		/* End with the post title. */
 		if ( $post_title = single_post_title( '', false ) ) {
 
-			if ( 1 < get_query_var( 'page' ) )
+			if ( 1 < get_query_var( 'page' ) || is_paged() )
 				$this->items[] = '<a href="' . get_permalink( $post_id ) . '" title="' . esc_attr( $post_title ) . '">' . $post_title . '</a>';
 
 			elseif ( true === $this->args['show_title'] )
