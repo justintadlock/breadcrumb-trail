@@ -385,7 +385,7 @@ class Breadcrumb_Trail {
 
 		/* Get the post ID and post. */
 		$post_id = get_queried_object_id();
-		$post    = get_page( $post_id );
+		$post    = get_post( $post_id );
 
 		/* If the post has parents, add them to the trail. */
 		if ( 0 < $post->post_parent )
