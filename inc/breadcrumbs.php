@@ -485,8 +485,13 @@ class Breadcrumb_Trail {
 		$post_type = get_post_type( $post_id );
 
 		/* Add the terms of the taxonomy for this post. */
-		if ( !empty( $this->args['post_taxonomy'][ $post_type ] ) )
-			$this->items[] = get_the_term_list( $post_id, $this->args['post_taxonomy'][ $post_type ], '', ', ', '' );
+		if ( !empty( $this->args['post_taxonomy'][ $post_type ] ) ) {
+
+			$terms = get_the_term_list( $post_id, $this->args['post_taxonomy'][ $post_type ], '', ', ', '' );
+
+			if ( $terms && !is_wp_error( $terms ) )
+				$this->items[] = $terms;
+		}
 	}
 
 	/**
