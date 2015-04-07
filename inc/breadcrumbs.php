@@ -453,10 +453,14 @@ class Breadcrumb_Trail {
 			/* Get the post by ID. */
 			$post = get_post( $post_id );
 
+			/* If we hit a page that's set as the front page, bail. */
+			if ( 'page' == $post->post_type && 'page' == get_option( 'show_on_front' ) && $post_id == get_option( 'page_on_front' ) )
+				break;
+
 			/* Add the formatted post link to the array of parents. */
 			$parents[] = '<a href="' . esc_url( get_permalink( $post_id ) ) . '">' . get_the_title( $post_id ) . '</a>';
 
-			/* If there's no longer a post parent, brea out of the loop. */
+			/* If there's no longer a post parent, break out of the loop. */
 			if ( 0 >= $post->post_parent )
 				break;
 
