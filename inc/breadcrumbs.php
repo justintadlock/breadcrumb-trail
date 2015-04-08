@@ -138,19 +138,22 @@ class Breadcrumb_Trail {
 			if ( true === $this->args['show_browse'] )
 				$breadcrumb .= "\n\t\t\t" . '<h2 class="trail-browse">' . $this->args['labels']['browse'] . '</h2> ';
 
+			/* Open the unordered list. */
+			$breadcrumb .= '<ul class="trail-items">';
+
 			/* Adds the 'trail-begin' class around first item if there's more than one item. */
 			if ( 1 < count( $this->items ) )
-				array_unshift( $this->items, '<span class="trail-begin">' . array_shift( $this->items ) . '</span>' );
+				array_unshift( $this->items, '<li class="trail-begin">' . array_shift( $this->items ) . '</li>' );
 
 			/* Adds the 'trail-end' class around last item. */
-			array_push( $this->items, '<span class="trail-end">' . array_pop( $this->items ) . '</span>' );
+			array_push( $this->items, '<li class="trail-end">' . array_pop( $this->items ) . '</li>' );
 
-			$breadcrumb .= '<ul class="trail-items"><li>';
+			/* Loop through the items and add them to the list. */
+			foreach ( $this->items as $item )
+				$breadcrumb .= preg_match( '/<li.*?>.*?<\/li>/i', $item ) ? $item : "<li>{$item}</li>";
 
-			/* Join the individual trail items into a single string. */
-			$breadcrumb .= join( "\n\t\t\t</li><li>", $this->items );
-
-			$breadcrumb .= '</li></ul>';
+			/* Close the unordered list. */
+			$breadcrumb .= '</ul>';
 
 			/* If $after was set, wrap it in a container. */
 			$breadcrumb .= ( !empty( $this->args['after'] ) ? "\n\t\t\t" . ' <span class="trail-after">' . $this->args['after'] . '</span>' : '' );
