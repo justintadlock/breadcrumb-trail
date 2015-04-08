@@ -16,3 +16,44 @@ if ( !function_exists( 'breadcrumb_trail' ) )
 
 /* Load translation files. Note: Remove this line if packaging with a theme. */
 load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail/languages' );
+
+add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
+
+function breadcrumb_trail_theme_setup() {
+
+	if ( !current_theme_supports( 'breadcrumb-trail' ) )
+		add_action( 'wp_head', 'breadcrumb_trail_print_styles' );
+}
+
+function breadcrumb_trail_print_styles() { ?>
+
+<style type="text/css" id="breadcrumb-trail-css">
+.breadcrumbs .trail-items,
+.breadcrumbs .trail-items li {
+	margin-left:   0;
+	margin-right:  0;
+	padding-left:  0;
+	padding-right: 0;
+}
+
+.breadcrumbs .trail-items {
+	list-style: none;
+	display:    block;
+}
+
+	.breadcrumbs .trail-items li {
+		display:       inline-block;
+		background:    transparent;
+		text-indent:   0;
+	}
+
+		.trail-items li::after {
+			content: "\002F";
+			padding: 0 0.5em;
+		}
+
+		.trail-items li:last-of-type::after {
+			display: none;
+		}
+</style>
+<?php }

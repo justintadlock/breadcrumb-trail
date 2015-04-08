@@ -84,7 +84,6 @@ class Breadcrumb_Trail {
 
 		$defaults = array(
 			'container'       => 'div',
-			'separator'       => '&#47;',
 			'before'          => '',
 			'after'           => '',
 			'show_on_front'   => true,
@@ -149,8 +148,12 @@ class Breadcrumb_Trail {
 			/* Format the separator. */
 			$separator = ( !empty( $this->args['separator'] ) ? '<span class="sep">' . $this->args['separator'] . '</span>' : '<span class="sep">/</span>' );
 
+			$breadcrumb .= '<ul class="trail-items"><li>';
+
 			/* Join the individual trail items into a single string. */
-			$breadcrumb .= join( "\n\t\t\t {$separator} ", $this->items );
+			$breadcrumb .= join( "\n\t\t\t</li><li>", $this->items );
+
+			$breadcrumb .= '</li></ul>';
 
 			/* If $after was set, wrap it in a container. */
 			$breadcrumb .= ( !empty( $this->args['after'] ) ? "\n\t\t\t" . ' <span class="trail-after">' . $this->args['after'] . '</span>' : '' );
