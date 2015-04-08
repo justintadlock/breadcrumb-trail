@@ -28,32 +28,35 @@ function breadcrumb_trail_theme_setup() {
 function breadcrumb_trail_print_styles() { ?>
 
 <style type="text/css" id="breadcrumb-trail-css">
+.breadcrumbs .trail-browse,
 .breadcrumbs .trail-items,
 .breadcrumbs .trail-items li {
-	margin-left:   0;
-	margin-right:  0;
-	padding-left:  0;
-	padding-right: 0;
+	display:     inline-block;
+	margin:      0;
+	padding:     0;
+	border:      none;
+	background:  transparent;
+	text-indent: 0;
+}
+
+.breadcrumbs .trail-browse {
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	color:       inherit;
 }
 
 .breadcrumbs .trail-items {
 	list-style: none;
-	display:    block;
 }
 
-	.breadcrumbs .trail-items li {
-		display:       inline-block;
-		background:    transparent;
-		text-indent:   0;
+	.trail-items li::after {
+		content: "\002F";
+		padding: 0 0.5em;
 	}
 
-		.trail-items li::after {
-			content: "\002F";
-			padding: 0 0.5em;
-		}
-
-		.trail-items li:last-of-type::after {
-			display: none;
-		}
+	.trail-items li:last-of-type::after {
+		display: none;
+	}
 </style>
 <?php }

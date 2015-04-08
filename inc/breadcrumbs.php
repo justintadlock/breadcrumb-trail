@@ -136,7 +136,7 @@ class Breadcrumb_Trail {
 
 			/* Add 'browse' label if it should be shown. */
 			if ( true === $this->args['show_browse'] )
-				$breadcrumb .= "\n\t\t\t" . '<span class="trail-browse">' . $this->args['labels']['browse'] . '</span> ';
+				$breadcrumb .= "\n\t\t\t" . '<h2 class="trail-browse">' . $this->args['labels']['browse'] . '</h2> ';
 
 			/* Adds the 'trail-begin' class around first item if there's more than one item. */
 			if ( 1 < count( $this->items ) )
@@ -144,9 +144,6 @@ class Breadcrumb_Trail {
 
 			/* Adds the 'trail-end' class around last item. */
 			array_push( $this->items, '<span class="trail-end">' . array_pop( $this->items ) . '</span>' );
-
-			/* Format the separator. */
-			$separator = ( !empty( $this->args['separator'] ) ? '<span class="sep">' . $this->args['separator'] . '</span>' : '<span class="sep">/</span>' );
 
 			$breadcrumb .= '<ul class="trail-items"><li>';
 
