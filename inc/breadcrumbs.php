@@ -139,18 +139,39 @@ class Breadcrumb_Trail {
 				$breadcrumb .= "\n\t\t\t" . '<h2 class="trail-browse">' . $this->args['labels']['browse'] . '</h2> ';
 
 			/* Open the unordered list. */
-			$breadcrumb .= '<ul class="trail-items">';
+			$breadcrumb .= '<ul class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">';
 
-			/* Adds the 'trail-begin' class around first item if there's more than one item. */
-			if ( 1 < count( $this->items ) )
-				array_unshift( $this->items, '<li class="trail-begin">' . array_shift( $this->items ) . '</li>' );
-
-			/* Adds the 'trail-end' class around last item. */
-			array_push( $this->items, '<li class="trail-end">' . array_pop( $this->items ) . '</li>' );
+			/* Set up variables needed in the loop. */
+			$item_count    = count( $this->items );
+			$item_position = 0;
 
 			/* Loop through the items and add them to the list. */
-			foreach ( $this->items as $item )
-				$breadcrumb .= preg_match( '/<li.*?>.*?<\/li>/i', $item ) ? $item : "<li>{$item}</li>";
+			foreach ( $this->items as $item ) {
+
+				/* Iterate the item position. */
+				++$item_position;
+
+				/* Check if the item is linked. */
+				preg_match( '/(<a.*?>)(.*?)(<\/a>)/i', $item, $matches );
+
+				/* Wrap the item text with appropriate itemprop. */
+				$item = !empty( $matches ) ? sprintf( '%s<span itemprop="name">%s</span>%s', $matches[1], $matches[2], $matches[3] ) : sprintf( '<span itemprop="name">%s</span>', $item );
+
+				/* Create list item attributes. */
+				$attributes = 'itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
+
+				if ( 1 === $item_position && 1 < $item_count )
+					$attributes .= ' class="trail-begin"';
+
+				elseif ( $item_count === $item_position )
+					$attributes .= ' class="trail-end"';
+
+				/* Build the meta position HTML. */
+				$meta = sprintf( '<meta itemprop="position" content="%s" />', absint( $item_position ) );
+
+				/* Build the list item. */
+				$breadcrumb .= sprintf( '<li %s>%s%s</li>', $attributes, $item, $meta );
+			}
 
 			/* Close the unordered list. */
 			$breadcrumb .= '</ul>';
