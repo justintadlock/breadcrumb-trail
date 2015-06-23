@@ -89,8 +89,8 @@ class Breadcrumb_Trail {
 
 			/* Post taxonomy (examples follow). */
 			'post_taxonomy' => array(
-				// 'post'  => 'post_tag',
-				// 'book'  => 'genre',
+				'post'  => '%postname%' === trim( get_option( 'permalink_structure' ), '/' ) ? 'category' : false,
+			//	'book'  => 'genre',
 			),
 
 			/* Labels for text used (see Breadcrumb_Trail::default_labels). */
@@ -98,6 +98,9 @@ class Breadcrumb_Trail {
 		);
 
 		$this->args = apply_filters( 'breadcrumb_trail_args', wp_parse_args( $args, $defaults ) );
+
+		// Merge the user-added post taxonomies with the defaults.
+		$this->args['post_taxonomy'] = wp_parse_args( $this->args['post_taxonomy'], $defaults['post_taxonomy'] );
 
 		/* Merge the user-added labels with the defaults. */
 		$this->args['labels'] = wp_parse_args( $this->args['labels'], $this->default_labels() );
