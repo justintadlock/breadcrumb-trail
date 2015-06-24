@@ -565,6 +565,9 @@ class Breadcrumb_Trail {
 			/* Add support for a non-standard label of 'archive_title' (special use case). */
 			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
 
+			// Core filter hook.
+			$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
+
 			$this->items[] = '<a href="' . esc_url( get_post_type_archive_link( $post_type ) ) . '">' . $label . '</a>';
 		}
 	}
@@ -652,6 +655,9 @@ class Breadcrumb_Trail {
 							/* Add support for a non-standard label of 'archive_title' (special use case). */
 							$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
 
+							// Core filter hook.
+							$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
+
 							/* Add the post type archive link to the trail. */
 							$this->items[] = '<a href="' . esc_url( get_post_type_archive_link( $post_type_object->name ) ) . '">' . $label . '</a>';
 
@@ -671,6 +677,9 @@ class Breadcrumb_Trail {
 			$post_type_object = get_post_type_object( $taxonomy->object_type[0] );
 
 			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+
+			// Core filter hook.
+			$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
 
 			$this->items[] = '<a href="' . esc_url( get_post_type_archive_link( $post_type_object->name ) ) . '">' . $label . '</a>';
 		}
