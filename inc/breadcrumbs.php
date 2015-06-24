@@ -528,7 +528,7 @@ class Breadcrumb_Trail {
 	 *
 	 * @since  0.6.0
 	 * @access public
-	 * @param  int    $post_id The ID of the post to get the hierarchy for.
+	 * @param  int    $post_id
 	 * @return void
 	 */
 	public function do_post_hierarchy( $post_id ) {
@@ -605,8 +605,9 @@ class Breadcrumb_Trail {
 		global $wp_rewrite;
 
 		/* Get some taxonomy and term variables. */
-		$term     = get_queried_object();
-		$taxonomy = get_taxonomy( $term->taxonomy );
+		$term           = get_queried_object();
+		$taxonomy       = get_taxonomy( $term->taxonomy );
+		$done_post_type = false;
 
 		/* If there are rewrite rules for the taxonomy. */
 		if ( false !== $taxonomy->rewrite ) {
@@ -654,12 +655,24 @@ class Breadcrumb_Trail {
 							/* Add the post type archive link to the trail. */
 							$this->items[] = '<a href="' . esc_url( get_post_type_archive_link( $post_type_object->name ) ) . '">' . $label . '</a>';
 
+							$done_post_type = true;
+
 							/* Break out of the loop. */
 							break;
 						}
 					}
 				}
 			}
+		}
+
+		// If there's a single post type for the taxonomy, use it.
+		if ( false === $done_post_type && 1 === count( $taxonomy->object_type ) && post_type_exists( $taxonomy->object_type[0] ) ) {
+
+			$post_type_object = get_post_type_object( $taxonomy->object_type[0] );
+
+			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+
+			$this->items[] = '<a href="' . esc_url( get_post_type_archive_link( $post_type_object->name ) ) . '">' . $label . '</a>';
 		}
 
 		/* If the taxonomy is hierarchical, list its parent terms. */
