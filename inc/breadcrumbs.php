@@ -148,6 +148,10 @@ class Breadcrumb_Trail {
 			$item_count    = count( $this->items );
 			$item_position = 0;
 
+			// Add the number of items and item list order schema.
+			$breadcrumb .= sprintf( '<meta name="numberOfItems" content="%d" />', absint( $item_count ) );
+			$breadcrumb .= '<meta name="itemListOrder" content="Ascending" />';
+
 			// Loop through the items and add them to the list.
 			foreach ( $this->items as $item ) {
 
