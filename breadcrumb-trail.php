@@ -10,14 +10,14 @@
  * Domain Path: /languages
  */
 
-/* Extra check in case the script is being loaded by a theme. */
+# Extra check in case the script is being loaded by a theme.
 if ( !function_exists( 'breadcrumb_trail' ) )
 	require_once( 'inc/breadcrumbs.php' );
 
-/* Load translation files. Note: Remove this line if packaging with a theme. */
+# Load translation files. Note: Remove this line if packaging with a theme.
 load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail/languages' );
 
-/* Check theme support. */
+# Check theme support. */
 add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
 
 /**
@@ -56,8 +56,8 @@ function breadcrumb_trail_print_styles() {
 		}
 
 		.breadcrumbs .trail-browse {
-			font-size: inherit;
-			font-style: inherit;
+			font-size:   inherit;
+			font-style:  inherit;
 			font-weight: inherit;
 			color:       inherit;
 		}
