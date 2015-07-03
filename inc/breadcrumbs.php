@@ -687,14 +687,24 @@ class Breadcrumb_Trail {
 		// If there's a single post type for the taxonomy, use it.
 		if ( false === $done_post_type && 1 === count( $taxonomy->object_type ) && post_type_exists( $taxonomy->object_type[0] ) ) {
 
-			$post_type_object = get_post_type_object( $taxonomy->object_type[0] );
+			// If the post type is 'post'.
+			if ( 'post' === $taxonomy->object_type[0] ) {
+				$post_id = get_option( 'page_for_posts' );
 
-			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+				if ( 'posts' !== get_option( 'show_on_front' ) && 0 < $post_id )
+					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_permalink( $post_id ) ), get_the_title( $post_id ) );
 
-			// Core filter hook.
-			$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
+			// If the post type is not 'post'.
+			} else {
+				$post_type_object = get_post_type_object( $taxonomy->object_type[0] );
 
-			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_post_type_archive_link( $post_type_object->name ) ), $label );
+				$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+
+				// Core filter hook.
+				$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
+
+				$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_post_type_archive_link( $post_type_object->name ) ), $label );
+			}
 		}
 
 		// If the taxonomy is hierarchical, list its parent terms.
