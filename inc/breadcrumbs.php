@@ -78,7 +78,7 @@ class Breadcrumb_Trail {
 	public function __construct( $args = array() ) {
 
 		$defaults = array(
-			'container'       => 'div', // Container HTML element. nav|div
+			'container'       => 'nav', // Container HTML element. nav|div
 			'before'          => '',    // String to output before breadcrumb menu.
 			'after'           => '',    // String to output after breadcrumb menu.
 			'show_on_front'   => true,  // Whether to show when `is_front_page()`.
