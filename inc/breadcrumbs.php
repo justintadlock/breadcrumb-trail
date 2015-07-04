@@ -111,9 +111,9 @@ class Breadcrumb_Trail {
 		// Parse the arguments with the deaults.
 		$this->args = apply_filters( 'breadcrumb_trail_args', wp_parse_args( $args, $defaults ) );
 
-		// Set the post taxonomy and labels properties.
-		$this->set_post_taxonomy();
+		// Set the labels and post taxonomy properties.
 		$this->set_labels();
+		$this->set_post_taxonomy();
 
 		// Let's find some items to add to the trail!
 		$this->add_items();
