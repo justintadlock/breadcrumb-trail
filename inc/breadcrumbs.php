@@ -96,11 +96,8 @@ class Breadcrumb_Trail {
 			'show_browse'     => true,    // Whether to show the breadcrumb menu header.
 			'echo'            => true,    // Whether to print or return the breadcrumbs.
 			'labels'          => array(), // Text labels. @see Breadcrumb_Trail::set_labels()
-
-			// Post taxonomy (examples follow).
-			'post_taxonomy' => array(
-				'post'  => '%postname%' === trim( get_option( 'permalink_structure' ), '/' ) ? 'category' : false,
-			//	'book'  => 'genre',
+			'post_taxonomy'   => array(
+				'post' => '%postname%' === trim( get_option( 'permalink_structure' ), '/' ) ? 'category' : false,
 			)
 		);
 
