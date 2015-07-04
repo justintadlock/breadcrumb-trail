@@ -120,18 +120,19 @@ class Breadcrumb_Trail {
 	public function default_labels() {
 
 		$labels = array(
-			'browse'              => esc_html__( 'Browse:',                             'breadcrumb-trail' ),
-			'home'                => esc_html__( 'Home',                                'breadcrumb-trail' ),
-			'error_404'           => esc_html__( '404 Not Found',                       'breadcrumb-trail' ),
-			'archives'            => esc_html__( 'Archives',                            'breadcrumb-trail' ),
+			'browse'              => esc_html__( 'Browse:',                               'breadcrumb-trail' ),
+			'aria_label'          => esc_attr_x( 'Breadcrumbs', 'breadcrumbs aria label', 'breadcrumb-trail' ),
+			'home'                => esc_html__( 'Home',                                  'breadcrumb-trail' ),
+			'error_404'           => esc_html__( '404 Not Found',                         'breadcrumb-trail' ),
+			'archives'            => esc_html__( 'Archives',                              'breadcrumb-trail' ),
 			// Translators: %s is the search query. The HTML entities are opening and closing curly quotes.
-			'search'              => esc_html__( 'Search results for &#8220;%s&#8221;', 'breadcrumb-trail' ),
+			'search'              => esc_html__( 'Search results for &#8220;%s&#8221;',   'breadcrumb-trail' ),
 			// Translators: %s is the page number.
-			'paged'               => esc_html__( 'Page %s',                             'breadcrumb-trail' ),
+			'paged'               => esc_html__( 'Page %s',                               'breadcrumb-trail' ),
 			// Translators: Minute archive title. %s is the minute time format.
-			'archive_minute'      => esc_html__( 'Minute %s',                           'breadcrumb-trail' ),
+			'archive_minute'      => esc_html__( 'Minute %s',                             'breadcrumb-trail' ),
 			// Translators: Weekly archive title. %s is the week date format.
-			'archive_week'        => esc_html__( 'Week %s',                             'breadcrumb-trail' ),
+			'archive_week'        => esc_html__( 'Week %s',                               'breadcrumb-trail' ),
 
 			// "%s" is replaced with the translated date/time format.
 			'archive_minute_hour' => '%s',
@@ -165,7 +166,7 @@ class Breadcrumb_Trail {
 			$breadcrumb .= sprintf(
 				'<%s role="navigation" aria-label="%s" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">',
 				tag_escape( $this->args['container'] ),
-				esc_attr_x( 'Breadcrumbs', 'breadcrumbs aria label', 'breadcrumb-trail' )
+				esc_attr( $this->args['labels']['aria_label'] )
 			);
 
 			// If $before was set, wrap it in a container.
