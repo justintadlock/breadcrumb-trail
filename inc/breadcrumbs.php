@@ -415,19 +415,16 @@ class Breadcrumb_Trail {
 		// Only show front items if the 'show_on_front' argument is set to 'true'.
 		if ( true === $this->args['show_on_front'] || is_paged() || ( is_singular() && 1 < get_query_var( 'page' ) ) ) {
 
-			// If on a paged view, add the home link items.
-			if ( is_paged() ) {
-				$this->add_network_home_link();
+			// Add network home link.
+			$this->add_network_home_link();
+
+			// If on a paged view, add the site home link.
+			if ( is_paged() )
 				$this->add_site_home_link();
-			}
 
-			// If on the main front page, add the network home link item and the home item.
-			else {
-				$this->add_network_home_link();
-
-				if ( true === $this->args['show_title'] )
-					$this->items[] = ( is_multisite() && true === $this->args['network'] ) ? get_bloginfo( 'name' ) : $this->labels['home'];
-			}
+			// If on the main front page, add the network home title.
+			elseif ( true === $this->args['show_title'] )
+				$this->items[] = is_multisite() && true === $this->args['network'] ? get_bloginfo( 'name' ) : $this->labels['home'];
 		}
 	}
 
