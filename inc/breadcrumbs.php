@@ -384,7 +384,7 @@ class Breadcrumb_Trail {
 	public function add_network_home_link() {
 
 		if ( is_multisite() && !is_main_site() && true === $this->args['network'] )
-			$this->items[] = '<a href="' . esc_url( network_home_url() ) . '" rel="home">' . $this->labels['home'] . '</a>';
+			$this->items[] = sprintf( '<a href="%s" rel="home">%s</a>', esc_url( network_home_url() ), $this->labels['home'] );
 	}
 
 	/**
@@ -395,9 +395,12 @@ class Breadcrumb_Trail {
 	 * @return void
 	 */
 	public function add_site_home_link() {
-		$label = is_multisite() && !is_main_site() && true === $this->args['network'] ? get_bloginfo( 'name' ) : $this->labels['home'];
-		$rel   = is_multisite() && !is_main_site() && true === $this->args['network'] ? '' : ' rel="home"';
-		$this->items[] = '<a href="' . esc_url( home_url() ) . '"' . $rel .'>' . $label . '</a>';
+
+		$network = is_multisite() && !is_main_site() && true === $this->args['network'];
+		$label   = $network ? get_bloginfo( 'name' ) : $this->labels['home'];
+		$rel     = $network ? '' : ' rel="home"';
+
+		$this->items[] = sprintf( '<a href="%s"%s>%s</a>', esc_url( home_url() ), $rel, $label );
 	}
 
 	/**
