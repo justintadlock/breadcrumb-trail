@@ -158,23 +158,14 @@ class Breadcrumb_Trail {
 	 */
 	public function trail() {
 
-		$breadcrumb = '';
+		// Set up variables that we'll need.
+		$breadcrumb    = '';
+		$this->items   = array_unique( $this->items );
+		$item_count    = count( $this->items );
+		$item_position = 0;
 
 		// Connect the breadcrumb trail if there are items in the trail.
-		if ( !empty( $this->items ) && is_array( $this->items ) ) {
-
-			// Make sure we have a unique array of items.
-			$this->items = array_unique( $this->items );
-
-			// Open the breadcrumb trail containers.
-			$breadcrumb .= sprintf(
-				'<%s role="navigation" aria-label="%s" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">',
-				tag_escape( $this->args['container'] ),
-				esc_attr( $this->labels['aria_label'] )
-			);
-
-			// If $before was set, wrap it in a container.
-			$breadcrumb .= $this->args['before'] ? sprintf( '<span class="trail-before">%s</span>', $this->args['before'] ) : '';
+		if ( !empty( $this->items ) ) {
 
 			// Add 'browse' label if it should be shown.
 			if ( true === $this->args['show_browse'] )
@@ -182,10 +173,6 @@ class Breadcrumb_Trail {
 
 			// Open the unordered list.
 			$breadcrumb .= '<ul class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">';
-
-			// Set up variables needed in the loop.
-			$item_count    = count( $this->items );
-			$item_position = 0;
 
 			// Add the number of items and item list order schema.
 			$breadcrumb .= sprintf( '<meta name="numberOfItems" content="%d" />', absint( $item_count ) );
@@ -203,18 +190,17 @@ class Breadcrumb_Trail {
 				// Wrap the item text with appropriate itemprop.
 				$item = !empty( $matches ) ? sprintf( '%s<span itemprop="name">%s</span>%s', $matches[1], $matches[2], $matches[3] ) : sprintf( '<span itemprop="name">%s</span>', $item );
 
-				// Create list item attributes.
-				$attributes = 'itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
-
 				// Add list item classes.
+				$item_class = 'trail-item';
+
 				if ( 1 === $item_position && 1 < $item_count )
-					$attributes .= ' class="trail-item trail-begin"';
+					$item_class .= ' trail-begin';
 
 				elseif ( $item_count === $item_position )
-					$attributes .= ' class="trail-item trail-end"';
+					$item_class .= ' trail-end';
 
-				else
-					$attributes .= ' class="trail-item"';
+				// Create list item attributes.
+				$attributes = 'itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="' . $item_class . '"';
 
 				// Build the meta position HTML.
 				$meta = sprintf( '<meta itemprop="position" content="%s" />', absint( $item_position ) );
@@ -226,20 +212,24 @@ class Breadcrumb_Trail {
 			// Close the unordered list.
 			$breadcrumb .= '</ul>';
 
-			// If $after was set, wrap it in a container.
-			$breadcrumb .= $this->args['after'] ? sprintf( '<span class="trail-after">%s</span>', $this->args['after'] ) : '';
-
-			// Close the breadcrumb trail containers.
-			$breadcrumb .= sprintf( '</%s>', tag_escape( $this->args['container'] ) );
+			// Wrap the breadcrumb trail.
+			$breadcrumb = sprintf(
+				'<%1$s role="navigation" aria-label="%2$s" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">%3$s%4$s%5$s</%1$s>',
+				tag_escape( $this->args['container'] ),
+				esc_attr( $this->labels['aria_label'] ),
+				$this->args['before'],
+				$breadcrumb,
+				$this->args['after']
+			);
 		}
 
 		// Allow developers to filter the breadcrumb trail HTML.
 		$breadcrumb = apply_filters( 'breadcrumb_trail', $breadcrumb, $this->args );
 
-		if ( true === $this->args['echo'] )
-			echo $breadcrumb;
-		else
+		if ( false === $this->args['echo'] )
 			return $breadcrumb;
+
+		echo $breadcrumb;
 	}
 
 	/**
