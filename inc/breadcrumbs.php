@@ -470,122 +470,6 @@ class Breadcrumb_Trail {
 	}
 
 	/**
-	 * Adds a specific post's parents to the items array.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  int    $post_id
-	 * @return void
-	 */
-	public function add_post_parents( $post_id ) {
-		$parents = array();
-
-		while ( $post_id ) {
-
-			// Get the post by ID.
-			$post = get_post( $post_id );
-
-			// If we hit a page that's set as the front page, bail.
-			if ( 'page' == $post->post_type && 'page' == get_option( 'show_on_front' ) && $post_id == get_option( 'page_on_front' ) )
-				break;
-
-			// Add the formatted post link to the array of parents.
-			$parents[] = sprintf( '<a href="%s">%s</a>', esc_url( get_permalink( $post_id ) ), get_the_title( $post_id ) );
-
-			// If there's no longer a post parent, break out of the loop.
-			if ( 0 >= $post->post_parent )
-				break;
-
-			// Change the post ID to the parent post to continue looping.
-			$post_id = $post->post_parent;
-		}
-
-		// Get the post hierarchy based off the final parent post.
-		$this->add_post_hierarchy( $post_id );
-
-		// Display terms for specific post type taxonomy if requested.
-		if ( !empty( $this->args['post_taxonomy'][ $post->post_type ] ) )
-			$this->add_post_terms( $post_id, $this->args['post_taxonomy'][ $post->post_type ] );
-
-		// Merge the parent items into the items array.
-		$this->items = array_merge( $this->items, array_reverse( $parents ) );
-	}
-
-	/**
-	 * Adds a specific post's hierarchy to the items array.  The hierarchy is determined by post type's
-	 * rewrite arguments and whether it has an archive page.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  int    $post_id
-	 * @return void
-	 */
-	public function add_post_hierarchy( $post_id ) {
-
-		// Get the post type.
-		$post_type        = get_post_type( $post_id );
-		$post_type_object = get_post_type_object( $post_type );
-
-		// If this is the 'post' post type, get the rewrite front items and map the rewrite tags.
-		if ( 'post' === $post_type ) {
-
-			// Add $wp_rewrite->front to the trail.
-			$this->add_rewrite_front_items();
-
-			// Map the rewrite tags.
-			$this->map_rewrite_tags( $post_id, get_option( 'permalink_structure' ) );
-		}
-
-		// If the post type has rewrite rules.
-		elseif ( false !== $post_type_object->rewrite ) {
-
-			// If 'with_front' is true, add $wp_rewrite->front to the trail.
-			if ( $post_type_object->rewrite['with_front'] )
-				$this->add_rewrite_front_items();
-
-			// If there's a path, check for parents.
-			if ( !empty( $post_type_object->rewrite['slug'] ) )
-				$this->add_path_parents( $post_type_object->rewrite['slug'] );
-		}
-
-		// If there's an archive page, add it to the trail.
-		if ( !empty( $post_type_object->has_archive ) ) {
-
-			// Add support for a non-standard label of 'archive_title' (special use case).
-			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
-
-			// Core filter hook.
-			$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
-
-			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_post_type_archive_link( $post_type ) ), $label );
-		}
-	}
-
-	/**
-	 * Gets post types by slug.  This is needed because the get_post_types() function doesn't exactly
-	 * match the 'has_archive' argument when it's set as a string instead of a boolean.
-	 *
-	 * @since  0.6.0
-	 * @access public
-	 * @param  int    $slug  The post type archive slug to search for.
-	 * @return void
-	 */
-	public function get_post_types_by_slug( $slug ) {
-
-		$return = array();
-
-		$post_types = get_post_types( array(), 'objects' );
-
-		foreach ( $post_types as $type ) {
-
-			if ( $slug === $type->has_archive || ( true === $type->has_archive && $slug === $type->rewrite['slug'] ) )
-				$return[] = $type;
-		}
-
-		return $return;
-	}
-
-	/**
 	 * Adds the items to the trail items array for taxonomy term archives.
 	 *
 	 * @since  1.0.0
@@ -959,6 +843,155 @@ class Breadcrumb_Trail {
 	}
 
 	/**
+	 * Adds a specific post's parents to the items array.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  int    $post_id
+	 * @return void
+	 */
+	public function add_post_parents( $post_id ) {
+		$parents = array();
+
+		while ( $post_id ) {
+
+			// Get the post by ID.
+			$post = get_post( $post_id );
+
+			// If we hit a page that's set as the front page, bail.
+			if ( 'page' == $post->post_type && 'page' == get_option( 'show_on_front' ) && $post_id == get_option( 'page_on_front' ) )
+				break;
+
+			// Add the formatted post link to the array of parents.
+			$parents[] = sprintf( '<a href="%s">%s</a>', esc_url( get_permalink( $post_id ) ), get_the_title( $post_id ) );
+
+			// If there's no longer a post parent, break out of the loop.
+			if ( 0 >= $post->post_parent )
+				break;
+
+			// Change the post ID to the parent post to continue looping.
+			$post_id = $post->post_parent;
+		}
+
+		// Get the post hierarchy based off the final parent post.
+		$this->add_post_hierarchy( $post_id );
+
+		// Display terms for specific post type taxonomy if requested.
+		if ( !empty( $this->args['post_taxonomy'][ $post->post_type ] ) )
+			$this->add_post_terms( $post_id, $this->args['post_taxonomy'][ $post->post_type ] );
+
+		// Merge the parent items into the items array.
+		$this->items = array_merge( $this->items, array_reverse( $parents ) );
+	}
+
+	/**
+	 * Adds a specific post's hierarchy to the items array.  The hierarchy is determined by post type's
+	 * rewrite arguments and whether it has an archive page.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  int    $post_id
+	 * @return void
+	 */
+	public function add_post_hierarchy( $post_id ) {
+
+		// Get the post type.
+		$post_type        = get_post_type( $post_id );
+		$post_type_object = get_post_type_object( $post_type );
+
+		// If this is the 'post' post type, get the rewrite front items and map the rewrite tags.
+		if ( 'post' === $post_type ) {
+
+			// Add $wp_rewrite->front to the trail.
+			$this->add_rewrite_front_items();
+
+			// Map the rewrite tags.
+			$this->map_rewrite_tags( $post_id, get_option( 'permalink_structure' ) );
+		}
+
+		// If the post type has rewrite rules.
+		elseif ( false !== $post_type_object->rewrite ) {
+
+			// If 'with_front' is true, add $wp_rewrite->front to the trail.
+			if ( $post_type_object->rewrite['with_front'] )
+				$this->add_rewrite_front_items();
+
+			// If there's a path, check for parents.
+			if ( !empty( $post_type_object->rewrite['slug'] ) )
+				$this->add_path_parents( $post_type_object->rewrite['slug'] );
+		}
+
+		// If there's an archive page, add it to the trail.
+		if ( !empty( $post_type_object->has_archive ) ) {
+
+			// Add support for a non-standard label of 'archive_title' (special use case).
+			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+
+			// Core filter hook.
+			$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
+
+			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_post_type_archive_link( $post_type ) ), $label );
+		}
+	}
+
+	/**
+	 * Gets post types by slug.  This is needed because the get_post_types() function doesn't exactly
+	 * match the 'has_archive' argument when it's set as a string instead of a boolean.
+	 *
+	 * @since  0.6.0
+	 * @access public
+	 * @param  int    $slug  The post type archive slug to search for.
+	 * @return void
+	 */
+	public function get_post_types_by_slug( $slug ) {
+
+		$return = array();
+
+		$post_types = get_post_types( array(), 'objects' );
+
+		foreach ( $post_types as $type ) {
+
+			if ( $slug === $type->has_archive || ( true === $type->has_archive && $slug === $type->rewrite['slug'] ) )
+				$return[] = $type;
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Adds a post's terms from a specific taxonomy to the items array.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  int     $post_id  The ID of the post to get the terms for.
+	 * @param  string  $taxonomy The taxonomy to get the terms from.
+	 * @return void
+	 */
+	public function add_post_terms( $post_id, $taxonomy ) {
+
+		// Get the post type.
+		$post_type = get_post_type( $post_id );
+
+		// Get the post categories.
+		$terms = get_the_terms( $post_id, $taxonomy );
+
+		// Check that categories were returned.
+		if ( $terms ) {
+
+			// Sort the terms by ID and get the first category.
+			usort( $terms, '_usort_terms_by_ID' );
+			$term = get_term( $terms[0], $taxonomy );
+
+			// If the category has a parent, add the hierarchy to the trail.
+			if ( 0 < $term->parent )
+				$this->add_term_parents( $term->parent, $taxonomy );
+
+			// Add the category archive link to the trail.
+			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_term_link( $term, $taxonomy ) ), $term->name );
+		}
+	}
+
+	/**
 	 * Get parent posts by path.  Currently, this method only supports getting parents of the 'page'
 	 * post type.  The goal of this function is to create a clear path back to home given what would
 	 * normally be a "ghost" directory.  If any page matches the given path, it'll be added.
@@ -1014,39 +1047,6 @@ class Breadcrumb_Trail {
 					}
 				}
 			}
-		}
-	}
-
-	/**
-	 * Adds a post's terms from a specific taxonomy to the items array.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  int     $post_id  The ID of the post to get the terms for.
-	 * @param  string  $taxonomy The taxonomy to get the terms from.
-	 * @return void
-	 */
-	public function add_post_terms( $post_id, $taxonomy ) {
-
-		// Get the post type.
-		$post_type = get_post_type( $post_id );
-
-		// Get the post categories.
-		$terms = get_the_terms( $post_id, $taxonomy );
-
-		// Check that categories were returned.
-		if ( $terms ) {
-
-			// Sort the terms by ID and get the first category.
-			usort( $terms, '_usort_terms_by_ID' );
-			$term = get_term( $terms[0], $taxonomy );
-
-			// If the category has a parent, add the hierarchy to the trail.
-			if ( 0 < $term->parent )
-				$this->add_term_parents( $term->parent, $taxonomy );
-
-			// Add the category archive link to the trail.
-			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_term_link( $term, $taxonomy ) ), $term->name );
 		}
 	}
 
