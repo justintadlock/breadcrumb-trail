@@ -68,6 +68,15 @@ class Breadcrumb_Trail {
 	public $args = array();
 
 	/**
+	 * Array of text labels.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $labels = array();
+
+	/**
 	 * Sets up the breadcrumb trail.
 	 *
 	 * @since  0.6.0
@@ -78,23 +87,21 @@ class Breadcrumb_Trail {
 	public function __construct( $args = array() ) {
 
 		$defaults = array(
-			'container'       => 'nav', // Container HTML element. nav|div
-			'before'          => '',    // String to output before breadcrumb menu.
-			'after'           => '',    // String to output after breadcrumb menu.
-			'show_on_front'   => true,  // Whether to show when `is_front_page()`.
-			'network'         => false, // Whether to link to the network main site (multisite only).
-			'show_title'      => true,  // Whether to show the title (last item) in the trail.
-			'show_browse'     => true,  // Whether to show the breadcrumb menu header.
-			'echo'            => true,  // Whether to print or return the breadcrumbs.
+			'container'       => 'nav',   // Container HTML element. nav|div
+			'before'          => '',      // String to output before breadcrumb menu.
+			'after'           => '',      // String to output after breadcrumb menu.
+			'show_on_front'   => true,    // Whether to show when `is_front_page()`.
+			'network'         => false,   // Whether to link to the network main site (multisite only).
+			'show_title'      => true,    // Whether to show the title (last item) in the trail.
+			'show_browse'     => true,    // Whether to show the breadcrumb menu header.
+			'echo'            => true,    // Whether to print or return the breadcrumbs.
+			'labels'          => array(), // Text labels. @see Breadcrumb_Trail::set_labels()
 
 			// Post taxonomy (examples follow).
 			'post_taxonomy' => array(
 				'post'  => '%postname%' === trim( get_option( 'permalink_structure' ), '/' ) ? 'category' : false,
 			//	'book'  => 'genre',
-			),
-
-			// Labels for text used (see Breadcrumb_Trail::default_labels).
-			'labels' => array()
+			)
 		);
 
 		// Parse the arguments with the deaults.
@@ -103,23 +110,23 @@ class Breadcrumb_Trail {
 		// Merge the user-added post taxonomies with the defaults.
 		$this->args['post_taxonomy'] = wp_parse_args( $this->args['post_taxonomy'], $defaults['post_taxonomy'] );
 
-		// Merge the user-added labels with the defaults.
-		$this->args['labels'] = wp_parse_args( $this->args['labels'], $this->default_labels() );
+		// Set the labels.
+		$this->set_labels();
 
 		// Let's find some items to add to the trail!
 		$this->do_trail_items();
 	}
 
 	/**
-	 * Returns an array of the default labels.
+	 * Sets the labels property.  Parses the inputted labels array with the defaults.
 	 *
-	 * @since  0.6.0
+	 * @since  1.0.0
 	 * @access public
-	 * @return array
+	 * @return void
 	 */
-	public function default_labels() {
+	public function set_labels() {
 
-		$labels = array(
+		$defaults = array(
 			'browse'              => esc_html__( 'Browse:',                               'breadcrumb-trail' ),
 			'aria_label'          => esc_attr_x( 'Breadcrumbs', 'breadcrumbs aria label', 'breadcrumb-trail' ),
 			'home'                => esc_html__( 'Home',                                  'breadcrumb-trail' ),
@@ -142,7 +149,7 @@ class Breadcrumb_Trail {
 			'archive_year'        => '%s',
 		);
 
-		return $labels;
+		$this->labels = apply_filters( 'breadcrumb_trail_labels', wp_parse_args( $this->args['labels'], $defaults ) );
 	}
 
 	/**
@@ -166,7 +173,7 @@ class Breadcrumb_Trail {
 			$breadcrumb .= sprintf(
 				'<%s role="navigation" aria-label="%s" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">',
 				tag_escape( $this->args['container'] ),
-				esc_attr( $this->args['labels']['aria_label'] )
+				esc_attr( $this->labels['aria_label'] )
 			);
 
 			// If $before was set, wrap it in a container.
@@ -174,7 +181,7 @@ class Breadcrumb_Trail {
 
 			// Add 'browse' label if it should be shown.
 			if ( true === $this->args['show_browse'] )
-				$breadcrumb .= sprintf( '<h2 class="trail-browse">%s</h2>', $this->args['labels']['browse'] );
+				$breadcrumb .= sprintf( '<h2 class="trail-browse">%s</h2>', $this->labels['browse'] );
 
 			// Open the unordered list.
 			$breadcrumb .= '<ul class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">';
@@ -350,11 +357,11 @@ class Breadcrumb_Trail {
 
 		// If viewing a paged singular post.
 		if ( is_singular() && 1 < get_query_var( 'page' ) && true === $this->args['show_title'] )
-			$this->items[] = sprintf( $this->args['labels']['paged'], number_format_i18n( absint( get_query_var( 'page' ) ) ) );
+			$this->items[] = sprintf( $this->labels['paged'], number_format_i18n( absint( get_query_var( 'page' ) ) ) );
 
 		// If viewing a paged archive-type page.
 		elseif ( is_paged() && true === $this->args['show_title'] )
-			$this->items[] = sprintf( $this->args['labels']['paged'], number_format_i18n( absint( get_query_var( 'paged' ) ) ) );
+			$this->items[] = sprintf( $this->labels['paged'], number_format_i18n( absint( get_query_var( 'paged' ) ) ) );
 	}
 
 	/**
@@ -366,7 +373,7 @@ class Breadcrumb_Trail {
 	 */
 	public function do_network_home_link() {
 		if ( is_multisite() && !is_main_site() && true === $this->args['network'] )
-			$this->items[] = '<a href="' . esc_url( network_home_url() ) . '" rel="home">' . $this->args['labels']['home'] . '</a>';
+			$this->items[] = '<a href="' . esc_url( network_home_url() ) . '" rel="home">' . $this->labels['home'] . '</a>';
 	}
 
 	/**
@@ -377,7 +384,7 @@ class Breadcrumb_Trail {
 	 * @return void
 	 */
 	public function do_site_home_link() {
-		$label = is_multisite() && !is_main_site() && true === $this->args['network'] ? get_bloginfo( 'name' ) : $this->args['labels']['home'];
+		$label = is_multisite() && !is_main_site() && true === $this->args['network'] ? get_bloginfo( 'name' ) : $this->labels['home'];
 		$rel   = is_multisite() && !is_main_site() && true === $this->args['network'] ? '' : ' rel="home"';
 		$this->items[] = '<a href="' . esc_url( home_url() ) . '"' . $rel .'>' . $label . '</a>';
 	}
@@ -405,7 +412,7 @@ class Breadcrumb_Trail {
 				$this->do_network_home_link();
 
 				if ( true === $this->args['show_title'] )
-					$this->items[] = ( is_multisite() && true === $this->args['network'] ) ? get_bloginfo( 'name' ) : $this->args['labels']['home'];
+					$this->items[] = ( is_multisite() && true === $this->args['network'] ) ? get_bloginfo( 'name' ) : $this->labels['home'];
 			}
 		}
 	}
@@ -794,7 +801,7 @@ class Breadcrumb_Trail {
 
 		// Add the minute + hour item.
 		if ( true === $this->args['show_title'] )
-			$this->items[] = sprintf( $this->args['labels']['archive_minute_hour'], get_the_time( esc_html_x( 'g:i a', 'minute and hour archives time format', 'breadcrumb-trail' ) ) );
+			$this->items[] = sprintf( $this->labels['archive_minute_hour'], get_the_time( esc_html_x( 'g:i a', 'minute and hour archives time format', 'breadcrumb-trail' ) ) );
 	}
 
 	/**
@@ -811,7 +818,7 @@ class Breadcrumb_Trail {
 
 		// Add the minute item.
 		if ( true === $this->args['show_title'] )
-			$this->items[] = sprintf( $this->args['labels']['archive_minute'], get_the_time( esc_html_x( 'i', 'minute archives time format', 'breadcrumb-trail' ) ) );
+			$this->items[] = sprintf( $this->labels['archive_minute'], get_the_time( esc_html_x( 'i', 'minute archives time format', 'breadcrumb-trail' ) ) );
 	}
 
 	/**
@@ -828,7 +835,7 @@ class Breadcrumb_Trail {
 
 		// Add the hour item.
 		if ( true === $this->args['show_title'] )
-			$this->items[] = sprintf( $this->args['labels']['archive_hour'], get_the_time( esc_html_x( 'g a', 'hour archives time format', 'breadcrumb-trail' ) ) );
+			$this->items[] = sprintf( $this->labels['archive_hour'], get_the_time( esc_html_x( 'g a', 'hour archives time format', 'breadcrumb-trail' ) ) );
 	}
 
 	/**
@@ -844,9 +851,9 @@ class Breadcrumb_Trail {
 		$this->do_rewrite_front_items();
 
 		// Get year, month, and day.
-		$year  = sprintf( $this->args['labels']['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) );
-		$month = sprintf( $this->args['labels']['archive_month'], get_the_time( esc_html_x( 'F', 'monthly archives date format', 'breadcrumb-trail' ) ) );
-		$day   = sprintf( $this->args['labels']['archive_day'],   get_the_time( esc_html_x( 'j', 'daily archives date format',   'breadcrumb-trail' ) ) );
+		$year  = sprintf( $this->labels['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) );
+		$month = sprintf( $this->labels['archive_month'], get_the_time( esc_html_x( 'F', 'monthly archives date format', 'breadcrumb-trail' ) ) );
+		$day   = sprintf( $this->labels['archive_day'],   get_the_time( esc_html_x( 'j', 'daily archives date format',   'breadcrumb-trail' ) ) );
 
 		// Add the year and month items.
 		$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_year_link( get_the_time( 'Y' ) ) ), $year );
@@ -873,8 +880,8 @@ class Breadcrumb_Trail {
 		$this->do_rewrite_front_items();
 
 		// Get the year and week.
-		$year = sprintf( $this->args['labels']['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format', 'breadcrumb-trail' ) ) );
-		$week = sprintf( $this->args['labels']['archive_week'],  get_the_time( esc_html_x( 'W', 'weekly archives date format', 'breadcrumb-trail' ) ) );
+		$year = sprintf( $this->labels['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format', 'breadcrumb-trail' ) ) );
+		$week = sprintf( $this->labels['archive_week'],  get_the_time( esc_html_x( 'W', 'weekly archives date format', 'breadcrumb-trail' ) ) );
 
 		// Add the year item.
 		$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_year_link( get_the_time( 'Y' ) ) ), $year );
@@ -900,8 +907,8 @@ class Breadcrumb_Trail {
 		$this->do_rewrite_front_items();
 
 		// Get the year and month.
-		$year  = sprintf( $this->args['labels']['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) );
-		$month = sprintf( $this->args['labels']['archive_month'], get_the_time( esc_html_x( 'F', 'monthly archives date format', 'breadcrumb-trail' ) ) );
+		$year  = sprintf( $this->labels['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) );
+		$month = sprintf( $this->labels['archive_month'], get_the_time( esc_html_x( 'F', 'monthly archives date format', 'breadcrumb-trail' ) ) );
 
 		// Add the year item.
 		$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_year_link( get_the_time( 'Y' ) ) ), $year );
@@ -927,7 +934,7 @@ class Breadcrumb_Trail {
 		$this->do_rewrite_front_items();
 
 		// Get the year.
-		$year  = sprintf( $this->args['labels']['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) );
+		$year  = sprintf( $this->labels['archive_year'],  get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) );
 
 		// Add the year item.
 		if ( is_paged() )
@@ -952,7 +959,7 @@ class Breadcrumb_Trail {
 			$this->do_rewrite_front_items();
 
 		if ( true === $this->args['show_title'] )
-			$this->items[] = $this->args['labels']['archives'];
+			$this->items[] = $this->labels['archives'];
 	}
 
 	/**
@@ -965,10 +972,10 @@ class Breadcrumb_Trail {
 	public function do_search_items() {
 
 		if ( is_paged() )
-			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_search_link() ), sprintf( $this->args['labels']['search'], get_search_query() ) );
+			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_search_link() ), sprintf( $this->labels['search'], get_search_query() ) );
 
 		elseif ( true === $this->args['show_title'] )
-			$this->items[] = sprintf( $this->args['labels']['search'], get_search_query() );
+			$this->items[] = sprintf( $this->labels['search'], get_search_query() );
 	}
 
 	/**
@@ -981,7 +988,7 @@ class Breadcrumb_Trail {
 	public function do_404_items() {
 
 		if ( true === $this->args['show_title'] )
-			$this->items[] = $this->args['labels']['error_404'];
+			$this->items[] = $this->labels['error_404'];
 	}
 
 	/**
@@ -1114,15 +1121,15 @@ class Breadcrumb_Trail {
 
 				// If using the %year% tag, add a link to the yearly archive.
 				if ( '%year%' == $tag )
-					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_year_link( get_the_time( 'Y', $post_id ) ) ), sprintf( $this->args['labels']['archive_year'], get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) ) );
+					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_year_link( get_the_time( 'Y', $post_id ) ) ), sprintf( $this->labels['archive_year'], get_the_time( esc_html_x( 'Y', 'yearly archives date format',  'breadcrumb-trail' ) ) ) );
 
 				// If using the %monthnum% tag, add a link to the monthly archive.
 				elseif ( '%monthnum%' == $tag )
-					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_month_link( get_the_time( 'Y', $post_id ), get_the_time( 'm', $post_id ) ) ), sprintf( $this->args['labels']['archive_month'], get_the_time( esc_html_x( 'F', 'monthly archives date format', 'breadcrumb-trail' ) ) ) );
+					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_month_link( get_the_time( 'Y', $post_id ), get_the_time( 'm', $post_id ) ) ), sprintf( $this->labels['archive_month'], get_the_time( esc_html_x( 'F', 'monthly archives date format', 'breadcrumb-trail' ) ) ) );
 
 				// If using the %day% tag, add a link to the daily archive.
 				elseif ( '%day%' == $tag )
-					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_day_link( get_the_time( 'Y', $post_id ), get_the_time( 'm', $post_id ), get_the_time( 'd', $post_id ) ) ), sprintf( $this->args['labels']['archive_day'], get_the_time( esc_html_x( 'j', 'daily archives date format', 'breadcrumb-trail' ) ) ) );
+					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_day_link( get_the_time( 'Y', $post_id ), get_the_time( 'm', $post_id ), get_the_time( 'd', $post_id ) ) ), sprintf( $this->labels['archive_day'], get_the_time( esc_html_x( 'j', 'daily archives date format', 'breadcrumb-trail' ) ) ) );
 
 				// If using the %author% tag, add a link to the post author archive.
 				elseif ( '%author%' == $tag )
@@ -1155,4 +1162,10 @@ class Breadcrumb_Trail {
 			}
 		}
 	}
+
+	/**
+	 * @since      0.6.0
+	 * @deprecated 1.0.0
+	 */
+	public function default_labels() {}
 }
