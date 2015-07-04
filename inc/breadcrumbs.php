@@ -455,7 +455,8 @@ class Breadcrumb_Trail {
 			$this->add_post_hierarchy( $post_id );
 
 		// Display terms for specific post type taxonomy if requested.
-		$this->add_post_terms( $post_id );
+		if ( !empty( $this->args['post_taxonomy'][ $post->post_type ] ) )
+			$this->add_post_terms( $post_id, $this->args['post_taxonomy'][ $post->post_type ] );
 
 		// End with the post title.
 		if ( $post_title = single_post_title( '', false ) ) {
@@ -503,33 +504,11 @@ class Breadcrumb_Trail {
 		$this->add_post_hierarchy( $post_id );
 
 		// Display terms for specific post type taxonomy if requested.
-		$this->add_post_terms( $post_id );
+		if ( !empty( $this->args['post_taxonomy'][ $post->post_type ] ) )
+			$this->add_post_terms( $post_id, $this->args['post_taxonomy'][ $post->post_type ] );
 
 		// Merge the parent items into the items array.
 		$this->items = array_merge( $this->items, array_reverse( $parents ) );
-	}
-
-	/**
-	 * Adds a post's terms from a specific taxonomy to the items array.
-	 *
-	 * @since  1.0.0
-	 * @access public
-	 * @param  int    $post_id The ID of the post to get the terms for.
-	 * @return void
-	 */
-	public function add_post_terms( $post_id ) {
-
-		// Get the post type.
-		$post_type = get_post_type( $post_id );
-
-		// Add the terms of the taxonomy for this post.
-		if ( !empty( $this->args['post_taxonomy'][ $post_type ] ) ) {
-
-			$terms = get_the_term_list( $post_id, $this->args['post_taxonomy'][ $post_type ], '', ', ', '' );
-
-			if ( $terms && !is_wp_error( $terms ) )
-				$this->items[] = $terms;
-		}
 	}
 
 	/**
@@ -1039,6 +1018,39 @@ class Breadcrumb_Trail {
 	}
 
 	/**
+	 * Adds a post's terms from a specific taxonomy to the items array.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @param  int     $post_id  The ID of the post to get the terms for.
+	 * @param  string  $taxonomy The taxonomy to get the terms from.
+	 * @return void
+	 */
+	public function add_post_terms( $post_id, $taxonomy ) {
+
+		// Get the post type.
+		$post_type = get_post_type( $post_id );
+
+		// Get the post categories.
+		$terms = get_the_terms( $post_id, $taxonomy );
+
+		// Check that categories were returned.
+		if ( $terms ) {
+
+			// Sort the terms by ID and get the first category.
+			usort( $terms, '_usort_terms_by_ID' );
+			$term = get_term( $terms[0], $taxonomy );
+
+			// If the category has a parent, add the hierarchy to the trail.
+			if ( 0 < $term->parent )
+				$this->add_term_parents( $term->parent, $taxonomy );
+
+			// Add the category archive link to the trail.
+			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_term_link( $term, $taxonomy ) ), $term->name );
+		}
+	}
+
+	/**
 	 * Searches for term parents of hierarchical taxonomies.  This function is similar to the WordPress
 	 * function get_category_parents() but handles any type of taxonomy.
 	 *
@@ -1129,23 +1141,8 @@ class Breadcrumb_Trail {
 					// Force override terms in this post type.
 					$this->args['post_taxonomy'][ $post->post_type ] = false;
 
-					// Get the post categories.
-					$terms = get_the_category( $post_id );
-
-					// Check that categories were returned.
-					if ( $terms ) {
-
-						// Sort the terms by ID and get the first category.
-						usort( $terms, '_usort_terms_by_ID' );
-						$term = get_term( $terms[0], 'category' );
-
-						// If the category has a parent, add the hierarchy to the trail.
-						if ( 0 < $term->parent )
-							$this->add_term_parents( $term->parent, 'category' );
-
-						// Add the category archive link to the trail.
-						$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_term_link( $term, 'category' ) ), $term->name );
-					}
+					// Add the post categories.
+					$this->add_post_terms( $post_id, 'category' );
 				}
 			}
 		}
