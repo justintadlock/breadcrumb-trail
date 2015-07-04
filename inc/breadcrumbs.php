@@ -184,12 +184,11 @@ class Breadcrumb_Trail {
 
 		// Set up variables that we'll need.
 		$breadcrumb    = '';
-		$this->items   = array_unique( $this->items );
 		$item_count    = count( $this->items );
 		$item_position = 0;
 
 		// Connect the breadcrumb trail if there are items in the trail.
-		if ( !empty( $this->items ) ) {
+		if ( 0 < $item_count ) {
 
 			// Add 'browse' label if it should be shown.
 			if ( true === $this->args['show_browse'] )
@@ -340,7 +339,7 @@ class Breadcrumb_Trail {
 		$this->add_paged_items();
 
 		// Allow developers to overwrite the items for the breadcrumb trail.
-		$this->items = apply_filters( 'breadcrumb_trail_items', $this->items, $this->args );
+		$this->items = array_unique( apply_filters( 'breadcrumb_trail_items', $this->items, $this->args ) );
 	}
 
 	/**
