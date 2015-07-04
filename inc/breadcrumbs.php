@@ -77,6 +77,15 @@ class Breadcrumb_Trail {
 	public $labels = array();
 
 	/**
+	 * Array of post types (key) and taxonomies (value) to use for single post views.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @var    array
+	 */
+	public $post_taxonomy = array();
+
+	/**
 	 * Sets up the breadcrumb trail.
 	 *
 	 * @since  0.6.0
@@ -96,18 +105,14 @@ class Breadcrumb_Trail {
 			'show_browse'     => true,    // Whether to show the breadcrumb menu header.
 			'echo'            => true,    // Whether to print or return the breadcrumbs.
 			'labels'          => array(), // Text labels. @see Breadcrumb_Trail::set_labels()
-			'post_taxonomy'   => array(
-				'post' => '%postname%' === trim( get_option( 'permalink_structure' ), '/' ) ? 'category' : false,
-			)
+			'post_taxonomy'   => array(), // Taxonomies to use for post types. @see Breadcrumb_Trail::set_post_taxonomy()
 		);
 
 		// Parse the arguments with the deaults.
 		$this->args = apply_filters( 'breadcrumb_trail_args', wp_parse_args( $args, $defaults ) );
 
-		// Merge the user-added post taxonomies with the defaults.
-		$this->args['post_taxonomy'] = wp_parse_args( $this->args['post_taxonomy'], $defaults['post_taxonomy'] );
-
-		// Set the labels.
+		// Set the post taxonomy and labels properties.
+		$this->set_post_taxonomy();
 		$this->set_labels();
 
 		// Let's find some items to add to the trail!
@@ -147,6 +152,25 @@ class Breadcrumb_Trail {
 		);
 
 		$this->labels = apply_filters( 'breadcrumb_trail_labels', wp_parse_args( $this->args['labels'], $defaults ) );
+	}
+
+	/**
+	 * Sets the `$post_taxonomy` property.  This is an array of post types (key) and taxonomies (value).
+	 * The taxonomy's terms are shown on the singular post view if set.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return void
+	 */
+	public function set_post_taxonomy() {
+
+		$defaults = array();
+
+		// If post permalink is set to `%postname%`, use the `category` taxonomy.
+		if ( '%postname%' === trim( get_option( 'permalink_structure' ), '/' ) )
+			$defaults['post'] = 'category';
+
+		$this->post_taxonomy = apply_filters( 'breadcrumb_trail_post_taxonomy', wp_parse_args( $this->args['post_taxonomy'], $defaults ) );
 	}
 
 	/**
@@ -455,8 +479,8 @@ class Breadcrumb_Trail {
 			$this->add_post_hierarchy( $post_id );
 
 		// Display terms for specific post type taxonomy if requested.
-		if ( !empty( $this->args['post_taxonomy'][ $post->post_type ] ) )
-			$this->add_post_terms( $post_id, $this->args['post_taxonomy'][ $post->post_type ] );
+		if ( !empty( $this->post_taxonomy[ $post->post_type ] ) )
+			$this->add_post_terms( $post_id, $this->post_taxonomy[ $post->post_type ] );
 
 		// End with the post title.
 		if ( $post_title = single_post_title( '', false ) ) {
@@ -877,8 +901,8 @@ class Breadcrumb_Trail {
 		$this->add_post_hierarchy( $post_id );
 
 		// Display terms for specific post type taxonomy if requested.
-		if ( !empty( $this->args['post_taxonomy'][ $post->post_type ] ) )
-			$this->add_post_terms( $post_id, $this->args['post_taxonomy'][ $post->post_type ] );
+		if ( !empty( $this->post_taxonomy[ $post->post_type ] ) )
+			$this->add_post_terms( $post_id, $this->post_taxonomy[ $post->post_type ] );
 
 		// Merge the parent items into the items array.
 		$this->items = array_merge( $this->items, array_reverse( $parents ) );
@@ -1138,7 +1162,7 @@ class Breadcrumb_Trail {
 				elseif ( '%category%' == $tag ) {
 
 					// Force override terms in this post type.
-					$this->args['post_taxonomy'][ $post->post_type ] = false;
+					$this->post_taxonomy[ $post->post_type ] = false;
 
 					// Add the post categories.
 					$this->add_post_terms( $post_id, 'category' );
