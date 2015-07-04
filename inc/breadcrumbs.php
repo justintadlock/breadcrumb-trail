@@ -1097,12 +1097,11 @@ class Breadcrumb_Trail {
 	 */
 	public function map_rewrite_tags( $post_id, $path ) {
 
-		// Get the post based on the post ID.
 		$post = get_post( $post_id );
 
-		// If no post is returned, an error is returned, or the post does not have a 'post' post type, return.
-		if ( empty( $post ) || is_wp_error( $post ) || 'post' !== $post->post_type )
-			return $trail;
+		// If the post doesn't have the `post` post type, bail.
+		if ( 'post' !== $post->post_type )
+			return;
 
 		// Trim '/' from both sides of the $path.
 		$path = trim( $path, '/' );
