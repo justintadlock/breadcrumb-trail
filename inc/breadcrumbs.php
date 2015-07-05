@@ -88,26 +88,38 @@ class Breadcrumb_Trail {
 	/* ====== Magic Methods ====== */
 
 	/**
-	 * Sets up the breadcrumb trail.
+	 * Sets up the breadcrumb trail properties.  Calls the `Breadcrumb_Trail::add_items()` method
+	 * to creat the array of breadcrumb items.
 	 *
 	 * @since  0.6.0
 	 * @access public
-	 * @param  array  $args The arguments for how to build the breadcrumb trail.
+	 * @param  array   $args  {
+	 *     @type string    $container      Container HTML element. nav|div
+	 *     @type string    $before         String to output before breadcrumb menu.
+	 *     @type string    $after          String to output after breadcrumb menu.
+	 *     @type bool      $show_on_front  Whether to show when `is_front_page()`.
+	 *     @type bool      $network        Whether to link to the network main site (multisite only).
+	 *     @type bool      $show_title     Whether to show the title (last item) in the trail.
+	 *     @type bool      $show_browse    Whether to show the breadcrumb menu header.
+	 *     @type array     $labels         Text labels. @see Breadcrumb_Trail::set_labels()
+	 *     @type array     $post_taxonomy  Taxonomies to use for post types. @see Breadcrumb_Trail::set_post_taxonomy()
+	 *     @type bool      $echo           Whether to print or return the breadcrumbs.
+	 * }
 	 * @return void
 	 */
 	public function __construct( $args = array() ) {
 
 		$defaults = array(
-			'container'       => 'nav',   // Container HTML element. nav|div
-			'before'          => '',      // String to output before breadcrumb menu.
-			'after'           => '',      // String to output after breadcrumb menu.
-			'show_on_front'   => true,    // Whether to show when `is_front_page()`.
-			'network'         => false,   // Whether to link to the network main site (multisite only).
-			'show_title'      => true,    // Whether to show the title (last item) in the trail.
-			'show_browse'     => true,    // Whether to show the breadcrumb menu header.
-			'echo'            => true,    // Whether to print or return the breadcrumbs.
-			'labels'          => array(), // Text labels. @see Breadcrumb_Trail::set_labels()
-			'post_taxonomy'   => array(), // Taxonomies to use for post types. @see Breadcrumb_Trail::set_post_taxonomy()
+			'container'       => 'nav',
+			'before'          => '',
+			'after'           => '',
+			'show_on_front'   => true,
+			'network'         => false,
+			'show_title'      => true,
+			'show_browse'     => true,
+			'labels'          => array(),
+			'post_taxonomy'   => array(),
+			'echo'            => true
 		);
 
 		// Parse the arguments with the deaults.
@@ -124,7 +136,7 @@ class Breadcrumb_Trail {
 	/* ====== Public Methods ====== */
 
 	/**
-	 * Formats and outputs the breadcrumb trail.
+	 * Formats the HTML output for the breadcrumb trail.
 	 *
 	 * @since  0.6.0
 	 * @access public
@@ -263,7 +275,7 @@ class Breadcrumb_Trail {
 
 	/**
 	 * Runs through the various WordPress conditional tags to check the current page being viewed.  Once
-	 * a condition is met, a specific method is launched to add items to the $items array.
+	 * a condition is met, a specific method is launched to add items to the `$items` array.
 	 *
 	 * @since  1.0.0
 	 * @access protected
