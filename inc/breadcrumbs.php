@@ -88,6 +88,18 @@ class Breadcrumb_Trail {
 	/* ====== Magic Methods ====== */
 
 	/**
+	 * Magic method to use in case someone tries to output the layout object as a string.
+	 * We'll just return the trail HTML.
+	 *
+	 * @since  1.0.0
+	 * @access public
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->trail();
+	}
+
+	/**
 	 * Sets up the breadcrumb trail properties.  Calls the `Breadcrumb_Trail::add_items()` method
 	 * to creat the array of breadcrumb items.
 	 *
