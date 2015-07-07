@@ -23,38 +23,36 @@ That's all you need to do to add breadcrumbs to your site.  Of course, you can c
 The `breadcrumb_trail()` function accepts a single parameter of `$args`, which is an array of arguments for deciding how your breadcrumbs should behave.  The default arguments are the following.
 
 	$defaults = array(
-			'container'       => 'div',   // container element
-			'separator'       => '&#47;', // separator between items
-			'before'          => '',      // HTML to output before
-			'after'           => '',      // HTML to output after
-			'show_on_front'   => true,    // whether to show on front
-			'network'         => false,   // whether to create trail back to main site (multisite)
-			'show_title'      => true,    // whether to show the current page title
-			'show_browse'     => true,    // whether to show the "browse" text
-			'echo'            => true,    // whether to echo or return the breadcrumbs
+			'container'       => 'nav',
+			'before'          => '',
+			'after'           => '',
+			'show_on_front'   => true,
+			'network'         => false,
+			'show_title'      => true,
+			'show_browse'     => true,
+			'echo'            => true
 
-			/* Post taxonomy (examples follow). */
 			'post_taxonomy' => array(
 				// 'post'  => 'post_tag', // 'post' post type and 'post_tag' taxonomy
 				// 'book'  => 'genre',    // 'book' post type and 'genre' taxonomy
 			),
 
-			/* Labels for text used (see Breadcrumb_Trail::default_labels). */
 			'labels' => array(
-				'browse'              => __( 'Browse:',                             'breadcrumb-trail' ),
-				'home'                => __( 'Home',                                'breadcrumb-trail' ),
-				'error_404'           => __( '404 Not Found',                       'breadcrumb-trail' ),
-				'archives'            => __( 'Archives',                            'breadcrumb-trail' ),
-				/* Translators: %s is the search query. The HTML entities are opening and closing curly quotes. */
-				'search'              => __( 'Search results for &#8220;%s&#8221;', 'breadcrumb-trail' ),
-				/* Translators: %s is the page number. */
-				'paged'               => __( 'Page %s',                             'breadcrumb-trail' ),
-				/* Translators: Minute archive title. %s is the minute time format. */
-				'archive_minute'      => __( 'Minute %s',                           'breadcrumb-trail' ),
-				/* Translators: Weekly archive title. %s is the week date format. */
-				'archive_week'        => __( 'Week %s',                             'breadcrumb-trail' ),
+				'browse'              => esc_html__( 'Browse:',                               'breadcrumb-trail' ),
+				'aria_label'          => esc_attr_x( 'Breadcrumbs', 'breadcrumbs aria label', 'breadcrumb-trail' ),
+				'home'                => esc_html__( 'Home',                                  'breadcrumb-trail' ),
+				'error_404'           => esc_html__( '404 Not Found',                         'breadcrumb-trail' ),
+				'archives'            => esc_html__( 'Archives',                              'breadcrumb-trail' ),
+				// Translators: %s is the search query. The HTML entities are opening and closing curly quotes.
+				'search'              => esc_html__( 'Search results for &#8220;%s&#8221;',   'breadcrumb-trail' ),
+				// Translators: %s is the page number.
+				'paged'               => esc_html__( 'Page %s',                               'breadcrumb-trail' ),
+				// Translators: Minute archive title. %s is the minute time format.
+				'archive_minute'      => esc_html__( 'Minute %s',                             'breadcrumb-trail' ),
+				// Translators: Weekly archive title. %s is the week date format.
+				'archive_week'        => esc_html__( 'Week %s',                               'breadcrumb-trail' ),
 	
-				/* "%s" is replaced with the translated date/time format. */
+				// "%s" is replaced with the translated date/time format.
 				'archive_minute_hour' => '%s',
 				'archive_hour'        => '%s',
 				'archive_day'         => '%s',
@@ -65,24 +63,28 @@ The `breadcrumb_trail()` function accepts a single parameter of `$args`, which i
 
 ### Hooks ###
 
+* `breadcrumb_trail_object` - Filter the `Breadcrumb_Trail` object used for the trail.
 * `breadcrumb_trail_args` - Filter hook on the array of arguments passed in.
+* `breadcrumb_trail_labels` - Filter hook on the text labels.
+* `breadcrumb_trail_post_taxonomy` - Filter hook on the taxonomy to use with specific post types.
 * `breadcrumb_trail_items` - Filter hook on the array of items before being output.
-* `breadcrumb_trail_get_bbpress_items` - Filter hook on the array of items when using bbPress.
 * `breadcrumb_trail` - Filter hook on the HTML output of the breadcrumb trail.
 
 ### Extending `Breadcrumb_Trail` ###
 
-You can extend the `Breadcrumb_Trail` class with a custom class if needed.  See the `bbPress_Breadcrumb_Trail` class as an example.
+You can extend the `Breadcrumb_Trail` class with a custom class if needed.  When creating a sub-class, you'll need to filter `breadcrumb_trail_object` to tell the plugin to use your class.  Always return an object on this filter.
 
 #### Available properties ####
 
 * `$items` - Array of trail items.
 * `$args` - The parsed arguments passed in.
+* `$labels` - The parsed text labels.
+* `$post_taxonomy` - The parsed post taxonomy array.
 
 #### Available methods #####
 
 * `trail()` - Outputs/returns the final HTML.
-* `do_trail_items()` - Method for filling the `$items` array.
+* `add_items()` - Method for filling the `$items` array.
 
 Others are available, but those are the two you would actually put into real-world use.
 
@@ -96,4 +98,4 @@ I know.  I know.  You might not want to pay for support, but just consider it a 
 
 Breadcrumb Trail is licensed under the [GNU GPL](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html), version 2 or later.
 
-2008&thinsp;&ndash;&thinsp;2013 &copy; [Justin Tadlock](http://justintadlock.com).
+2008&thinsp;&ndash;&thinsp;2015 &copy; [Justin Tadlock](http://justintadlock.com).

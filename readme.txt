@@ -3,8 +3,8 @@
 Contributors: greenshady
 Donate link: http://themehybrid.com/donate
 Tags: navigation, menu, breadcrumb, breadcrumbs, microdata, schema
-Requires at least: 3.6
-Stable tag: 0.6.1
+Requires at least: 4.2
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.htm
 
@@ -22,14 +22,14 @@ This means that it can also detect custom post types and taxonomies right out of
 
 ### Features ###
 
-* 5+ years of development and user testing.
+* 7+ years of development and user testing.
 * Auto-detects the permalink structure of your site for the most accurate breadcrumbs.
 * Hooks for plugin/theme developers to overwrite output.
 * Coded with object-oriented programming (OOP) methods to allow developers to extend it for those highly-custom setups.
 
 ### Professional support ###
 
-If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com/support), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 40,000+ users (and growing).
+If you need professional plugin support from me, the plugin author, you can access the support forums at [Theme Hybrid](http://themehybrid.com), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 60,000+ users (and growing).
 
 == Installation ==
 
@@ -61,7 +61,19 @@ There are several methods, but in general, you would add the following line of c
 
 	<?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
 
-To see all methods and options, refer to the `readme.md` file included with the plugin download.
+To see all methods and options, refer to the `readme.md` file included with the plugin download.  You can also [view the readme online](https://github.com/justintadlock/breadcrumb-trail/blob/master/readme.md).
+
+### How do I disable the plugin styles? ###
+
+You can disable the plugin styles by adding this to your theme's `functions.php` file:
+
+	add_action( 'after_setup_theme', 'bct_theme_setup' );
+
+	function bct_theme_setup() {
+		add_theme_support( 'breadcrumb-trail' );
+	}
+
+Note that the breadcrumbs will be completely unstyled at this point.  You'll need to add style rules to your theme's `style.css` file.
 
 ### Do breadcrumbs show in Google search results? ###
 
@@ -96,9 +108,9 @@ There's not really much I can do to correct that within the Breadcrumb Trail plu
 
 == Upgrade Notice ==
 
-### Version 0.6.0+ ###
+### Version 1.0.0+ ###
 
-If upgrading to a version earlier than 0.6.0 to 0.6.0+, you should check the `readme.md` documentation on some of the argument changes if you've been adding custom arguments into the `breadcrumb_trail()` function.
+If upgrading to a version earlier than 1.0.0, your custom styles may need to be adjusted.  The HTML markup has changed to a better HTML5 structure.
 
 == Changelog ==
 
