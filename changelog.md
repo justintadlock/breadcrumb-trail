@@ -2,6 +2,38 @@
 
 ## [1.0.0] - 2015-07-07
 
+### Added
+
+* Plugins and themes can now filter the `breadcrumb_trail_object` to use their own sub-classes of `Breadcrumb_Trail`.
+* Adds the `role` and `aria-label` attributes to improve accessibility.
+* Changed from a flat HTML structure to a proper HTML5 `<nav>` > header > list structure.
+* Added basic CSS output for themes that don't support the plugin.  This was needed for backwards compatibility and the new HTML structure.
+* Added additional classes for styling in themes such as `.trail-items` (items wrapper) and `.trail-item` (single item).
+* Improved [Schema.org](http://schema.org) support for the newer [BreadcrumbList](http://schema.org/BreadcrumbList) type.
+* The category will now be shown by default on sites with a `%postname%` permalink structure for single post views.
+* Better support for finding related custom post types and taxonomies.
+* Added French translation files.
+
+### Fixed
+
+* Accounts if `is_paged()` on single post views, which is needed for custom post types like forums that are paged.
+* Always makes sure taxonomy terms exist before adding them as breadcrumb items.
+* Uses `get_post()` instead of the deprecated `get_page()` function.
+* Don't show parent page item if it's set as the front page and we're viewing a child page.
+
+### Changed
+
+* Removed the `title` attribute for links.  This is far better for accessibility.
+
+### Security
+
+* Hardening security by making sure all URLs are passed through `esc_url()`.
+* Hardening security by running translations through `esc_html_e()` and `esc_html__()`.
+
+### Removed
+
+* bbPress support was dropped.  If needed, developers should sub-class `Breadcrumb_Trail`.
+
 ## [0.6.1]
 
 * Make sure `breadcrumb_trail()` can return the HTML.
