@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Breadcrumb Trail WordPress Plugin\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/breadcrumb-trail\n"
-"POT-Creation-Date: 2014-07-11 15:37:55+00:00\n"
-"PO-Revision-Date: 2014-07-11 10:40-0600\n"
+"POT-Creation-Date: 2015-07-07 16:55:40+00:00\n"
+"PO-Revision-Date: 2015-07-07 11:58-0600\n"
 "Last-Translator: Sami Keijonen <sami.keijonen@foxnet.fi>\n"
 "Language-Team: Foxnet Themes <sami.keijonen@foxnet.fi>\n"
 "Language: fi\n"
@@ -17,91 +17,83 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: inc/breadcrumbs.php:178
+#: inc/breadcrumbs.php:244
 msgid "Browse:"
 msgstr "Olet täällä:"
 
-#: inc/breadcrumbs.php:179
+#: inc/breadcrumbs.php:245
+msgctxt "breadcrumbs aria label"
+msgid "Breadcrumbs"
+msgstr ""
+
+#: inc/breadcrumbs.php:246
 msgid "Home"
 msgstr "Etusivu"
 
-#: inc/breadcrumbs.php:180
+#: inc/breadcrumbs.php:247
 msgid "404 Not Found"
 msgstr "404 Sivua ei löytynyt"
 
-#: inc/breadcrumbs.php:181
+#: inc/breadcrumbs.php:248
 msgid "Archives"
 msgstr "Arkistot"
 
 #. Translators: %s is the search query. The HTML entities are opening and
 #. closing curly quotes.
-#: inc/breadcrumbs.php:183
+#: inc/breadcrumbs.php:250
 msgid "Search results for &#8220;%s&#8221;"
 msgstr "Hakutulokset haulle: \"%s\""
 
 #. Translators: %s is the page number.
-#: inc/breadcrumbs.php:185
+#: inc/breadcrumbs.php:252
 msgid "Page %s"
 msgstr "Sivu %d"
 
 #. Translators: Minute archive title. %s is the minute time format.
-#: inc/breadcrumbs.php:187
+#: inc/breadcrumbs.php:254
 msgid "Minute %s"
 msgstr "Minuutti %d"
 
 #. Translators: Weekly archive title. %s is the week date format.
-#: inc/breadcrumbs.php:189
+#: inc/breadcrumbs.php:256
 msgid "Week %s"
 msgstr "Viikko %d"
 
-#: inc/breadcrumbs.php:716
+#: inc/breadcrumbs.php:708
 msgctxt "minute and hour archives time format"
 msgid "g:i a"
 msgstr "G:i"
 
-#: inc/breadcrumbs.php:733
+#: inc/breadcrumbs.php:725
 msgctxt "minute archives time format"
 msgid "i"
 msgstr ""
 
-#: inc/breadcrumbs.php:750
+#: inc/breadcrumbs.php:742
 msgctxt "hour archives time format"
 msgid "g a"
 msgstr "g a"
 
-#: inc/breadcrumbs.php:766 inc/breadcrumbs.php:795 inc/breadcrumbs.php:822
-#: inc/breadcrumbs.php:849 inc/breadcrumbs.php:1036
+#: inc/breadcrumbs.php:758 inc/breadcrumbs.php:787 inc/breadcrumbs.php:814
+#: inc/breadcrumbs.php:841 inc/breadcrumbs.php:1176
 msgctxt "yearly archives date format"
 msgid "Y"
 msgstr "Y"
 
-#: inc/breadcrumbs.php:767 inc/breadcrumbs.php:823 inc/breadcrumbs.php:1040
+#: inc/breadcrumbs.php:759 inc/breadcrumbs.php:815 inc/breadcrumbs.php:1180
 msgctxt "monthly archives date format"
 msgid "F"
 msgstr "F"
 
-#: inc/breadcrumbs.php:768 inc/breadcrumbs.php:1044
+#: inc/breadcrumbs.php:760 inc/breadcrumbs.php:1184
 msgctxt "daily archives date format"
 msgid "j"
 msgstr ""
 
-#: inc/breadcrumbs.php:796
+#: inc/breadcrumbs.php:788
 msgctxt "weekly archives date format"
 msgid "W"
 msgstr ""
-
-#: inc/breadcrumbs.php:1135 inc/breadcrumbs.php:1171 inc/breadcrumbs.php:1188
-#: inc/breadcrumbs.php:1219
-msgid "Edit"
-msgstr "Muokkaa"
-
-#: inc/breadcrumbs.php:1163
-msgid "Split"
-msgstr "Jaa"
-
-#: inc/breadcrumbs.php:1167
-msgid "Merge"
-msgstr "Yhdistä"
 
 #. Plugin Name of the plugin/theme
 msgid "Breadcrumb Trail"
@@ -126,6 +118,15 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "http://justintadlock.com"
 msgstr ""
+
+#~ msgid "Edit"
+#~ msgstr "Muokkaa"
+
+#~ msgid "Split"
+#~ msgstr "Jaa"
+
+#~ msgid "Merge"
+#~ msgstr "Yhdistä"
 
 #~ msgid "d"
 #~ msgstr "d"
