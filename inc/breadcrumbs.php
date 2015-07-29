@@ -309,7 +309,7 @@ class Breadcrumb_Trail {
 
 			// If viewing the home/blog page.
 			if ( is_home() ) {
-				$this->add_posts_page_items();
+				$this->add_blog_items();
 			}
 
 			// If viewing a single post.
@@ -465,7 +465,7 @@ class Breadcrumb_Trail {
 	 * @access protected
 	 * @return void
 	 */
-	protected function add_posts_page_items() {
+	protected function add_blog_items() {
 
 		// Get the post ID and post.
 		$post_id = get_queried_object_id();
