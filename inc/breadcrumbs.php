@@ -655,11 +655,15 @@ class Breadcrumb_Trail {
 		}
 
 		// Add the post type [plural] name to the trail end.
-		if ( is_paged() )
+		if ( is_paged() || is_author() )
 			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_post_type_archive_link( $post_type_object->name ) ), post_type_archive_title( '', false ) );
 
 		elseif ( true === $this->args['show_title'] )
 			$this->items[] = post_type_archive_title( '', false );
+
+		// If viewing a post type archive by author.
+		if ( is_author() )
+			$this->add_user_archive_items();
 	}
 
 	/**
@@ -680,7 +684,7 @@ class Breadcrumb_Trail {
 		$user_id = get_query_var( 'author' );
 
 		// If $author_base exists, check for parent pages.
-		if ( !empty( $wp_rewrite->author_base ) )
+		if ( !empty( $wp_rewrite->author_base ) && ! is_post_type_archive() )
 			$this->add_path_parents( $wp_rewrite->author_base );
 
 		// Add the author's display name to the trail end.
