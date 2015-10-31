@@ -985,6 +985,10 @@ class Breadcrumb_Trail {
 
 			$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_post_type_archive_link( $post_type ) ), $label );
 		}
+
+		// Map the rewrite tags if there's a `%` in the slug.
+		if ( 'post' !== $post_type && ! empty( $post_type_object->rewrite['slug'] ) && false !== strpos( $post_type_object->rewrite['slug'], '%' ) )
+			$this->map_rewrite_tags( $post_id, $post_type_object->rewrite['slug'] );
 	}
 
 	/**
@@ -1152,10 +1156,6 @@ class Breadcrumb_Trail {
 
 		$post = get_post( $post_id );
 
-		// If the post doesn't have the `post` post type, bail.
-		if ( 'post' !== $post->post_type )
-			return;
-
 		// Trim '/' from both sides of the $path.
 		$path = trim( $path, '/' );
 
@@ -1188,13 +1188,13 @@ class Breadcrumb_Trail {
 					$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_author_posts_url( $post->post_author ) ), get_the_author_meta( 'display_name', $post->post_author ) );
 
 				// If using the %category% tag, add a link to the first category archive to match permalinks.
-				elseif ( '%category%' == $tag ) {
+				elseif ( taxonomy_exists( trim( $tag, '%' ) ) ) {
 
 					// Force override terms in this post type.
 					$this->post_taxonomy[ $post->post_type ] = false;
 
 					// Add the post categories.
-					$this->add_post_terms( $post_id, 'category' );
+					$this->add_post_terms( $post_id, trim( $tag, '%' ) );
 				}
 			}
 		}
