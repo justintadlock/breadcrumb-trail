@@ -30,7 +30,7 @@ The `breadcrumb_trail()` function accepts a single parameter of `$args`, which i
 			'network'         => false,
 			'show_title'      => true,
 			'show_browse'     => true,
-			'echo'            => true
+			'echo'            => true,
 
 			'post_taxonomy' => array(
 				// 'post'  => 'post_tag', // 'post' post type and 'post_tag' taxonomy
