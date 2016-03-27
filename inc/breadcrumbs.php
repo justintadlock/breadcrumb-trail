@@ -166,14 +166,10 @@ class Breadcrumb_Trail {
 
 			// Add 'browse' label if it should be shown.
 			if ( true === $this->args['show_browse'] )
-				$breadcrumb .= sprintf( '<h2 class="trail-browse">%s</h2>', $this->labels['browse'] );
+				$breadcrumb .= sprintf( '<p class="trail-browse">%s</p>', $this->labels['browse'] );
 
 			// Open the unordered list.
 			$breadcrumb .= '<ul class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">';
-
-			// Add the number of items and item list order schema.
-			$breadcrumb .= sprintf( '<meta name="numberOfItems" content="%d" />', absint( $item_count ) );
-			$breadcrumb .= '<meta name="itemListOrder" content="Ascending" />';
 
 			// Loop through the items and add them to the list.
 			foreach ( $this->items as $item ) {
@@ -211,7 +207,7 @@ class Breadcrumb_Trail {
 
 			// Wrap the breadcrumb trail.
 			$breadcrumb = sprintf(
-				'<%1$s role="navigation" aria-label="%2$s" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">%3$s%4$s%5$s</%1$s>',
+				'<%1$s aria-label="%2$s" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">%3$s%4$s%5$s</%1$s>',
 				tag_escape( $this->args['container'] ),
 				esc_attr( $this->labels['aria_label'] ),
 				$this->args['before'],
