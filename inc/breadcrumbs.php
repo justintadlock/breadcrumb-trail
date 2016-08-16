@@ -250,6 +250,8 @@ class Breadcrumb_Trail {
 			'search'              => esc_html__( 'Search results for &#8220;%s&#8221;',   'breadcrumb-trail' ),
 			// Translators: %s is the page number.
 			'paged'               => esc_html__( 'Page %s',                               'breadcrumb-trail' ),
+			// Translators: %s is the page number.
+			'paged_comments'      => esc_html__( 'Comment Page %s',                       'breadcrumb-trail' ),
 			// Translators: Minute archive title. %s is the minute time format.
 			'archive_minute'      => esc_html__( 'Minute %s',                             'breadcrumb-trail' ),
 			// Translators: Weekly archive title. %s is the week date format.
@@ -399,6 +401,10 @@ class Breadcrumb_Trail {
 		if ( is_singular() && 1 < get_query_var( 'page' ) && true === $this->args['show_title'] )
 			$this->items[] = sprintf( $this->labels['paged'], number_format_i18n( absint( get_query_var( 'page' ) ) ) );
 
+		// If viewing a singular post with paged comments.
+		elseif ( is_singular() && get_option( 'page_comments' ) && 1 < get_query_var( 'cpage' ) )
+			$this->items[] = sprintf( $this->labels['paged_comments'], number_format_i18n( absint( get_query_var( 'cpage' ) ) ) );
+
 		// If viewing a paged archive-type page.
 		elseif ( is_paged() && true === $this->args['show_title'] )
 			$this->items[] = sprintf( $this->labels['paged'], number_format_i18n( absint( get_query_var( 'paged' ) ) ) );
@@ -514,7 +520,7 @@ class Breadcrumb_Trail {
 		// End with the post title.
 		if ( $post_title = single_post_title( '', false ) ) {
 
-			if ( 1 < get_query_var( 'page' ) || is_paged() )
+			if ( ( 1 < get_query_var( 'page' ) || is_paged() ) || ( get_option( 'page_comments' ) && 1 < absint( get_query_var( 'cpage' ) ) ) )
 				$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_permalink( $post_id ) ), $post_title );
 
 			elseif ( true === $this->args['show_title'] )
