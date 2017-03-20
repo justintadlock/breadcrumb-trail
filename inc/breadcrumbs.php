@@ -359,6 +359,11 @@ class Breadcrumb_Trail {
 				$this->add_search_items();
 			}
 
+			// bbPress custom pages
+			elseif ( function_exists( 'is_bbpress' ) && is_bbpress() ) {
+				$this->add_bbpress_items();
+			}
+
 			// If viewing the 404 page.
 			elseif ( is_404() ) {
 				$this->add_404_items();
@@ -1198,5 +1203,51 @@ class Breadcrumb_Trail {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Fixes user breadcrumb for bbPress custom rewrite rules
+	 *
+	 * @since  1.1.0
+	 *
+	 * @return array
+	 */
+	function add_bbpress_items() {
+
+		// Validate user
+		$user_id = bbp_get_user_id();
+		if ( empty( $user_id ) ) {
+			return;
+		}
+
+		$user = get_userdata( $user_id );
+		if ( is_wp_error( $user_id ) ) {
+			return;
+		}
+
+		$current = FALSE;
+
+		if ( bbp_is_replies_created() ) {
+			$current = __( 'Replies', 'breadcrumb-trail' );
+		} elseif ( bbp_is_topics_created() ) {
+			$current = __( 'Topics', 'breadcrumb-trail' );
+		} elseif ( bbp_is_favorites() ) {
+			$current = __( 'Favorites', 'breadcrumb-trail' );
+		} elseif ( bbp_is_subscriptions() ) {
+			$current = __( 'Subscriptions', 'breadcrumb-trail' );
+		} elseif ( bbp_is_single_user_edit() ) {
+			$current = __( 'Profile edit', 'breadcrumb-trail' );
+		} elseif ( bbp_is_single_user() ) {
+			$current = __( 'Profile', 'breadcrumb-trail' );
+		}
+
+		if ( empty( $current ) ) {
+			return;
+		}
+
+		$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( get_post_type_archive_link( bbp_get_forum_post_type() ) ), bbp_get_forum_archive_title() );
+		$this->items[] = sprintf( '<a href="%s">%s</a>', esc_url( bbp_get_user_profile_link() ), $user->display_name );
+		$this->items[] = $current;
+
 	}
 }
