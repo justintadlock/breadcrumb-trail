@@ -109,6 +109,7 @@ class Breadcrumb_Trail {
 	 *     @type string    $container      Container HTML element. nav|div
 	 *     @type string    $before         String to output before breadcrumb menu.
 	 *     @type string    $after          String to output after breadcrumb menu.
+	 *     @type string    $browse_tag     The HTML tag to use to wrap the "Browse" header text.
 	 *     @type bool      $show_on_front  Whether to show when `is_front_page()`.
 	 *     @type bool      $network        Whether to link to the network main site (multisite only).
 	 *     @type bool      $show_title     Whether to show the title (last item) in the trail.
@@ -125,6 +126,7 @@ class Breadcrumb_Trail {
 			'container'       => 'nav',
 			'before'          => '',
 			'after'           => '',
+			'browse_tag'      => 'h2',
 			'show_on_front'   => true,
 			'network'         => false,
 			'show_title'      => true,
@@ -165,8 +167,14 @@ class Breadcrumb_Trail {
 		if ( 0 < $item_count ) {
 
 			// Add 'browse' label if it should be shown.
-			if ( true === $this->args['show_browse'] )
-				$breadcrumb .= sprintf( '<h2 class="trail-browse">%s</h2>', $this->labels['browse'] );
+			if ( true === $this->args['show_browse'] ) {
+
+				$breadcrumb .= sprintf(
+					'<%1$s class="trail-browse">%2$s</%1$s>',
+					tag_escape( $this->args['browse_tag'] ),
+					$this->labels['browse']
+				);
+			}
 
 			// Open the unordered list.
 			$breadcrumb .= '<ul class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">';
