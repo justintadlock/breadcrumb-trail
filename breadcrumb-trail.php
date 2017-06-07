@@ -14,8 +14,12 @@
 if ( !function_exists( 'breadcrumb_trail' ) )
 	require_once( 'inc/breadcrumbs.php' );
 
-# Load translation files. Note: Remove this line if packaging with a theme.
-load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail/languages' );
+# Load translation files. Note: Remove these lines if packaging with a theme.
+if ( false !== strpos( __FILE__, basename( WPMU_PLUGIN_DIR ) ) ) {
+	load_muplugin_textdomain( 'breadcrumb-trail', 'breadcrumb-trail/languages' );
+} else {
+	load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail/languages' );
+}
 
 # Check theme support. */
 add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
