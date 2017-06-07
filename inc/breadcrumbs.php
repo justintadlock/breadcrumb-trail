@@ -246,8 +246,8 @@ class Breadcrumb_Trail {
 			'home'                => esc_html__( 'Home',                                  'breadcrumb-trail' ),
 			'error_404'           => esc_html__( '404 Not Found',                         'breadcrumb-trail' ),
 			'archives'            => esc_html__( 'Archives',                              'breadcrumb-trail' ),
-			// Translators: %s is the search query. The HTML entities are opening and closing curly quotes.
-			'search'              => esc_html__( 'Search results for &#8220;%s&#8221;',   'breadcrumb-trail' ),
+			// Translators: %s is the search query.
+			'search'              => esc_html__( 'Search results for: %s',                'breadcrumb-trail' ),
 			// Translators: %s is the page number.
 			'paged'               => esc_html__( 'Page %s',                               'breadcrumb-trail' ),
 			// Translators: %s is the page number.
