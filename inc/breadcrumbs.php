@@ -444,7 +444,7 @@ class Breadcrumb_Trail {
 		$label   = $network ? get_bloginfo( 'name' ) : $this->labels['home'];
 		$rel     = $network ? '' : ' rel="home"';
 
-		$this->items[] = sprintf( '<a href="%s"%s>%s</a>', esc_url( home_url() ), $rel, $label );
+		$this->items[] = sprintf( '<a href="%s"%s>%s</a>', esc_url( user_trailingslashit( home_url() ) ), $rel, $label );
 	}
 
 	/**
