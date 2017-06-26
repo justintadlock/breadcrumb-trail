@@ -911,6 +911,10 @@ class Breadcrumb_Trail {
 			// Get the post by ID.
 			$post = get_post( $post_id );
 
+			if ( ! $post ) {
+				break;
+			}
+
 			// If we hit a page that's set as the front page, bail.
 			if ( 'page' == $post->post_type && 'page' == get_option( 'show_on_front' ) && $post_id == get_option( 'page_on_front' ) )
 				break;
