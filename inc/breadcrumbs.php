@@ -643,7 +643,7 @@ class Breadcrumb_Trail {
 		// Get the post type object.
 		$post_type_object = get_post_type_object( get_query_var( 'post_type' ) );
 
-		if ( false !== $post_type_object->rewrite ) {
+		if ( isset( $post_type_object->rewrite ) && false !== $post_type_object->rewrite ) {
 
 			// If 'with_front' is true, add $wp_rewrite->front to the trail.
 			if ( $post_type_object->rewrite['with_front'] )
@@ -911,6 +911,10 @@ class Breadcrumb_Trail {
 			// Get the post by ID.
 			$post = get_post( $post_id );
 
+			if ( ! $post ) {
+				break;
+			}
+
 			// If we hit a page that's set as the front page, bail.
 			if ( 'page' == $post->post_type && 'page' == get_option( 'show_on_front' ) && $post_id == get_option( 'page_on_front' ) )
 				break;
@@ -975,7 +979,7 @@ class Breadcrumb_Trail {
 		}
 
 		// If there's an archive page, add it to the trail.
-		if ( $post_type_object->has_archive ) {
+		if ( ! empty( $post_type_object->has_archive ) ) {
 
 			// Add support for a non-standard label of 'archive_title' (special use case).
 			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
@@ -1132,7 +1136,7 @@ class Breadcrumb_Trail {
 
 		// If we have parent terms, reverse the array to put them in the proper order for the trail.
 		if ( !empty( $parents ) )
-			$this->items = array_merge( $this->items, $parents );
+			$this->items = array_merge( $this->items, array_reverse( $parents ) );
 	}
 
 	/**
