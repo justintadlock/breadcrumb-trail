@@ -14,11 +14,23 @@
 if ( !function_exists( 'breadcrumb_trail' ) )
 	require_once( 'inc/breadcrumbs.php' );
 
-# Load translation files. Note: Remove this line if packaging with a theme.
-load_plugin_textdomain( 'breadcrumb-trail', false, 'breadcrumb-trail/languages' );
+# Plugin setup callback.
+add_action( 'plugins_loaded', 'breadcrumb_trail_setup' );
 
 # Check theme support. */
 add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
+
+/**
+ * Plugin set. For now, it just loads the translation.
+ *
+ * @since  1.1.0
+ * @access public
+ * @return void
+ */
+function breadcrumb_trail_setup() {
+
+	load_plugin_textdomain( 'breadcrumb-trail', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'languages' );
+}
 
 /**
  * Checks if the theme supports the Breadcrumb Trail script.  If it doesn't, we'll hook some styles
