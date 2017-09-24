@@ -51,7 +51,7 @@ The `breadcrumb_trail()` function accepts a single parameter of `$args`, which i
 				'archive_minute'      => esc_html__( 'Minute %s',                             'breadcrumb-trail' ),
 				// Translators: Weekly archive title. %s is the week date format.
 				'archive_week'        => esc_html__( 'Week %s',                               'breadcrumb-trail' ),
-	
+
 				// "%s" is replaced with the translated date/time format.
 				'archive_minute_hour' => '%s',
 				'archive_hour'        => '%s',
@@ -90,7 +90,7 @@ Others are available, but those are the two you would actually put into real-wor
 
 ## Support ##
 
-I run a WordPress community called [Theme Hybrid](http://themehybrid.com), which is where I fully support all of my WordPress plugins, themes, and other projects.  You can sign up for an account to get plugin support for a small yearly fee.
+I run a WordPress community called [Theme Hybrid](https://themehybrid.com), which is where I fully support all of my WordPress plugins, themes, and other projects.  You can sign up for an account to get plugin support for a small yearly fee.
 
 I know.  I know.  You might not want to pay for support, but just consider it a donation to the project.  To continue making cool, GPL-licensed plugins/themes and having the time to support them, I must pay the bills.
 
@@ -98,4 +98,4 @@ I know.  I know.  You might not want to pay for support, but just consider it a 
 
 Breadcrumb Trail is licensed under the [GNU GPL](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html), version 2 or later.
 
-2008&thinsp;&ndash;&thinsp;2015 &copy; [Justin Tadlock](http://justintadlock.com).
+2008&thinsp;&ndash;&thinsp;2017 &copy; [Justin Tadlock](http://justintadlock.com).

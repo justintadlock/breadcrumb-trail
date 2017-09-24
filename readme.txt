@@ -1,7 +1,7 @@
 === Breadcrumb Trail ===
 
 Contributors: greenshady
-Donate link: http://themehybrid.com/donate
+Donate link: https://themehybrid.com/donate
 Tags: breadcrumbs, navigation, menu
 Requires at least: 4.7
 Tested up to: 4.8.2

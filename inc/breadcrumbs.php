@@ -17,8 +17,8 @@
  * @package   BreadcrumbTrail
  * @version   1.1.0-dev
  * @author    Justin Tadlock <justin@justintadlock.com>
- * @copyright Copyright (c) 2008 - 2015, Justin Tadlock
- * @link      http://themehybrid.com/plugins/breadcrumb-trail
+ * @copyright Copyright (c) 2008 - 2017, Justin Tadlock
+ * @link      https://themehybrid.com/plugins/breadcrumb-trail
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
