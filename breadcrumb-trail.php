@@ -7,7 +7,7 @@
  * Author:      Justin Tadlock
  * Author URI:  http://justintadlock.com
  * Text Domain: breadcrumb-trail
- * Domain Path: /languages
+ * Domain Path: /lang
  */
 
 # Extra check in case the script is being loaded by a theme.
@@ -29,7 +29,7 @@ add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
  */
 function breadcrumb_trail_setup() {
 
-	load_plugin_textdomain( 'breadcrumb-trail', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'languages' );
+	load_plugin_textdomain( 'breadcrumb-trail', false, trailingslashit( dirname( plugin_basename( __FILE__ ) ) ) . 'lang' );
 }
 
 /**
