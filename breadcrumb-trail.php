@@ -42,7 +42,7 @@ function breadcrumb_trail_setup() {
  */
 function breadcrumb_trail_theme_setup() {
 
-	if ( !current_theme_supports( 'breadcrumb-trail' ) )
+	if ( ! current_theme_supports( 'breadcrumb-trail' ) )
 		add_action( 'wp_head', 'breadcrumb_trail_print_styles' );
 }
 
@@ -87,5 +87,8 @@ function breadcrumb_trail_print_styles() {
 				display: none;
 			}';
 
-	echo "\n" . '<style type="text/css" id="breadcrumb-trail-css">' . trim( str_replace( array( "\r", "\n", "\t", "  " ), '', $style ) ) . '</style>' . "\n";
+	$style = apply_filters( 'breadcrumb_trail_inline_style', trim( str_replace( array( "\r", "\n", "\t", "  " ), '', $style ) ) );
+
+	if ( $style )
+		echo "\n" . '<style type="text/css" id="breadcrumb-trail-css">' . $style . '</style>' . "\n";
 }
