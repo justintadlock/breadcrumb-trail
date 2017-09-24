@@ -110,6 +110,8 @@ class Breadcrumb_Trail {
 	 *     @type string    $before         String to output before breadcrumb menu.
 	 *     @type string    $after          String to output after breadcrumb menu.
 	 *     @type string    $browse_tag     The HTML tag to use to wrap the "Browse" header text.
+	 *     @type string    $list_tag       The HTML tag to use for the list wrapper.
+	 *     @type string    $item_tag       The HTML tag to use for the item wrapper.
 	 *     @type bool      $show_on_front  Whether to show when `is_front_page()`.
 	 *     @type bool      $network        Whether to link to the network main site (multisite only).
 	 *     @type bool      $show_title     Whether to show the title (last item) in the trail.
@@ -127,6 +129,8 @@ class Breadcrumb_Trail {
 			'before'          => '',
 			'after'           => '',
 			'browse_tag'      => 'h2',
+			'list_tag'        => 'ul',
+			'item_tag'        => 'li',
 			'show_on_front'   => true,
 			'network'         => false,
 			'show_title'      => true,
@@ -177,7 +181,10 @@ class Breadcrumb_Trail {
 			}
 
 			// Open the unordered list.
-			$breadcrumb .= '<ul class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">';
+			$breadcrumb .= sprintf(
+				'<%s class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">',
+				tag_escape( $this->args['list_tag'] )
+			);
 
 			// Add the number of items and item list order schema.
 			$breadcrumb .= sprintf( '<meta name="numberOfItems" content="%d" />', absint( $item_count ) );
@@ -216,11 +223,11 @@ class Breadcrumb_Trail {
 				$meta = sprintf( '<meta itemprop="position" content="%s" />', absint( $item_position ) );
 
 				// Build the list item.
-				$breadcrumb .= sprintf( '<li %s>%s%s</li>', $attributes, $item, $meta );
+				$breadcrumb .= sprintf( '<%1$s %2$s>%3$s%4$s</%1$s>', tag_escape( $this->args['item_tag'] ),$attributes, $item, $meta );
 			}
 
 			// Close the unordered list.
-			$breadcrumb .= '</ul>';
+			$breadcrumb .= sprintf( '</%s>', tag_escape( $this->args['list_tag'] ) );
 
 			// Wrap the breadcrumb trail.
 			$breadcrumb = sprintf(
