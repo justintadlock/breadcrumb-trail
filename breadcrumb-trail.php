@@ -11,7 +11,7 @@
  */
 
 # Extra check in case the script is being loaded by a theme.
-if ( !function_exists( 'breadcrumb_trail' ) )
+if ( ! function_exists( 'breadcrumb_trail' ) )
 	require_once( 'inc/breadcrumbs.php' );
 
 # Plugin setup callback.
@@ -21,7 +21,7 @@ add_action( 'plugins_loaded', 'breadcrumb_trail_setup' );
 add_action( 'after_setup_theme', 'breadcrumb_trail_theme_setup', 12 );
 
 /**
- * Plugin set. For now, it just loads the translation.
+ * Plugin setup. For now, it just loads the translation.
  *
  * @since  1.1.0
  * @access public

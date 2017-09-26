@@ -35,7 +35,7 @@ function breadcrumb_trail( $args = array() ) {
 
 	$breadcrumb = apply_filters( 'breadcrumb_trail_object', null, $args );
 
-	if ( !is_object( $breadcrumb ) )
+	if ( ! is_object( $breadcrumb ) )
 		$breadcrumb = new Breadcrumb_Trail( $args );
 
 	return $breadcrumb->trail();
@@ -439,7 +439,7 @@ class Breadcrumb_Trail {
 	 */
 	protected function add_network_home_link() {
 
-		if ( is_multisite() && !is_main_site() && true === $this->args['network'] )
+		if ( is_multisite() && ! is_main_site() && true === $this->args['network'] )
 			$this->items[] = sprintf( '<a href="%s" rel="home">%s</a>', esc_url( network_home_url() ), $this->labels['home'] );
 	}
 
@@ -452,7 +452,7 @@ class Breadcrumb_Trail {
 	 */
 	protected function add_site_home_link() {
 
-		$network = is_multisite() && !is_main_site() && true === $this->args['network'];
+		$network = is_multisite() && ! is_main_site() && true === $this->args['network'];
 		$label   = $network ? get_bloginfo( 'name' ) : $this->labels['home'];
 		$rel     = $network ? '' : ' rel="home"';
 
@@ -534,7 +534,7 @@ class Breadcrumb_Trail {
 			$this->add_post_hierarchy( $post_id );
 
 		// Display terms for specific post type taxonomy if requested.
-		if ( !empty( $this->post_taxonomy[ $post->post_type ] ) )
+		if ( ! empty( $this->post_taxonomy[ $post->post_type ] ) )
 			$this->add_post_terms( $post_id, $this->post_taxonomy[ $post->post_type ] );
 
 		// End with the post title.
@@ -599,12 +599,12 @@ class Breadcrumb_Trail {
 						// Get public post types that match the rewrite slug.
 						$post_types = $this->get_post_types_by_slug( $match );
 
-						if ( !empty( $post_types ) ) {
+						if ( ! empty( $post_types ) ) {
 
 							$post_type_object = $post_types[0];
 
 							// Add support for a non-standard label of 'archive_title' (special use case).
-							$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+							$label = ! empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
 
 							// Core filter hook.
 							$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
@@ -636,7 +636,7 @@ class Breadcrumb_Trail {
 			} else {
 				$post_type_object = get_post_type_object( $taxonomy->object_type[0] );
 
-				$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+				$label = ! empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
 
 				// Core filter hook.
 				$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
@@ -676,7 +676,7 @@ class Breadcrumb_Trail {
 				$this->add_rewrite_front_items();
 
 			// If there's a rewrite slug, check for parents.
-			if ( !empty( $post_type_object->rewrite['slug'] ) )
+			if ( ! empty( $post_type_object->rewrite['slug'] ) )
 				$this->add_path_parents( $post_type_object->rewrite['slug'] );
 		}
 
@@ -710,7 +710,7 @@ class Breadcrumb_Trail {
 		$user_id = get_query_var( 'author' );
 
 		// If $author_base exists, check for parent pages.
-		if ( !empty( $wp_rewrite->author_base ) && ! is_post_type_archive() )
+		if ( ! empty( $wp_rewrite->author_base ) && ! is_post_type_archive() )
 			$this->add_path_parents( $wp_rewrite->author_base );
 
 		// Add the author's display name to the trail end.
@@ -960,7 +960,7 @@ class Breadcrumb_Trail {
 		$this->add_post_hierarchy( $post_id );
 
 		// Display terms for specific post type taxonomy if requested.
-		if ( !empty( $this->post_taxonomy[ $post->post_type ] ) )
+		if ( ! empty( $this->post_taxonomy[ $post->post_type ] ) )
 			$this->add_post_terms( $post_id, $this->post_taxonomy[ $post->post_type ] );
 
 		// Merge the parent items into the items array.
@@ -1000,7 +1000,7 @@ class Breadcrumb_Trail {
 				$this->add_rewrite_front_items();
 
 			// If there's a path, check for parents.
-			if ( !empty( $post_type_object->rewrite['slug'] ) )
+			if ( ! empty( $post_type_object->rewrite['slug'] ) )
 				$this->add_path_parents( $post_type_object->rewrite['slug'] );
 		}
 
@@ -1008,7 +1008,7 @@ class Breadcrumb_Trail {
 		if ( $post_type_object->has_archive ) {
 
 			// Add support for a non-standard label of 'archive_title' (special use case).
-			$label = !empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
+			$label = ! empty( $post_type_object->labels->archive_title ) ? $post_type_object->labels->archive_title : $post_type_object->labels->name;
 
 			// Core filter hook.
 			$label = apply_filters( 'post_type_archive_title', $label, $post_type_object->name );
@@ -1105,7 +1105,7 @@ class Breadcrumb_Trail {
 		// Get parent post by the path.
 		$post = get_page_by_path( $path );
 
-		if ( !empty( $post ) ) {
+		if ( ! empty( $post ) ) {
 			$this->add_post_parents( $post->ID );
 		}
 
@@ -1132,7 +1132,7 @@ class Breadcrumb_Trail {
 						$post = get_page_by_path( trim( $path, '/' ) );
 
 						// If a parent post is found, set the $post_id and break out of the loop.
-						if ( !empty( $post ) && 0 < $post->ID ) {
+						if ( ! empty( $post ) && 0 < $post->ID ) {
 							$this->add_post_parents( $post->ID );
 							break;
 						}
@@ -1170,7 +1170,7 @@ class Breadcrumb_Trail {
 		}
 
 		// If we have parent terms, reverse the array to put them in the proper order for the trail.
-		if ( !empty( $parents ) )
+		if ( ! empty( $parents ) )
 			$this->items = array_merge( $this->items, array_reverse( $parents ) );
 	}
 
