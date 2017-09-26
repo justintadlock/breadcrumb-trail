@@ -33,7 +33,7 @@ This means that it can also detect custom post types and taxonomies right out of
 * Coded with object-oriented programming (OOP) methods to allow developers to extend it for those highly-custom setups.
 * Properly handles nearly any custom post type or taxonomy.
 
-### Professional support ###
+### Professional support
 
 If you need professional plugin support from me, the plugin author, you can join the club at [Theme Hybrid](https://themehybrid.com/club), which is a professional WordPress help/support site where I handle support for all my plugins and themes for a community of 75,000+ users (and growing).
 
@@ -47,14 +47,6 @@ Yes, I do accept donations.  If you want to donate, you can do so from my [donat
 
 I appreciate all donations, no matter the size.  Further development of this plugin is not contingent on donations, but they are always a nice incentive.
 
-== Installation ==
-
-1. Upload `breadcrumb-trail` to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Add the `breadcrumb_trail()` template tag to your theme.
-
-More detailed instructions are included in the plugin's `readme.md` file.
-
 == Frequently Asked Questions ==
 
 ### Why was this plugin created?
@@ -67,9 +59,7 @@ The plugin is still mostly packaged with themes and is currently being used on m
 
 Basically, it's a navigational tool.  On many sites, you'll see something that looks like this:
 
-```
-You are here: Home > Page > Sub-page > Sub-sub-page
-```
+	You are here: Home > Page > Sub-page > Sub-sub-page
 
 This plugin allows you to easily add this type of menu your site.
 
@@ -77,9 +67,7 @@ This plugin allows you to easily add this type of menu your site.
 
 There are several methods, but in general, you would add the following line of code to your theme.  Generally, this goes somewhere near the bottom of your theme's `header.php` template.  However, you can add it anywhere you want in your theme, and it should work.
 
-```
-<?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
-```
+	<?php if ( function_exists( 'breadcrumb_trail' ) ) breadcrumb_trail(); ?>
 
 To see all methods and options, refer to the `readme.md` file included with the plugin download.  You can also [view the readme online](https://github.com/justintadlock/breadcrumb-trail/blob/master/readme.md).
 
@@ -87,9 +75,7 @@ To see all methods and options, refer to the `readme.md` file included with the 
 
 You can disable the plugin styles by adding this to your theme's `functions.php` file:
 
-```
-add_filter( 'breadcrumb_trail_inline_style', '__return_false' );
-```
+	add_filter( 'breadcrumb_trail_inline_style', '__return_false' );
 
 Note that the breadcrumbs will be completely unstyled at this point.  You'll need to add style rules to your theme's `style.css` file.
 
@@ -132,4 +118,4 @@ If upgrading to a version earlier than 1.0.0, your custom styles may need to be 
 
 == Changelog ==
 
-Please see the `changelog.md` file included with the plugin file.  Or, you can view the [online change log](https://github.com/justintadlock/breadcrumb-trail/blob/master/readme.md).
+Please see the `changelog.md` file included with the plugin file.  Or, you can view the [online change log](https://github.com/justintadlock/breadcrumb-trail/blob/master/changelog.md).
