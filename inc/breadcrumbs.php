@@ -937,6 +937,11 @@ class Breadcrumb_Trail {
 		$parents = array();
 
 		while ( $post_id ) {
+			
+			// Get translated post ID if Polylang is active.
+			if ( function_exists( 'pll_get_post' ) ) {
+				$post_id = pll_get_post( $post_id );
+			}
 
 			// Get the post by ID.
 			$post = get_post( $post_id );
