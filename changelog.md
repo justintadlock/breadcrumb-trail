@@ -1,5 +1,29 @@
 # Change Log
 
+## [1.1.0] - 2017-09-24
+
+### Added
+
+* Handles mapping rewrite tags for any post type now. Any of the standard rewrite tags are mapped. It also handles any custom taxonomy when used as part of the post type rewrite slug (e.g., `%genre%`, `%portfolio_tag%`, etc.).
+* Adds proper breadcrumbs when viewing post type archives by author.
+* Support for paged comments. When viewing paged comments, the post title gets linked and `Comment Page %s` becomes the final item.
+* New `paged_comments` label available.
+* `browse_tag` argument for controlling the header/browse tag. Defaults to `h2`.
+* `list_tag` argument for controlling the list tag. Defaults to `ul`.
+* `item_tag` argument for controlling the item tag. Defaults to `li`.
+* The `itemprop="item"` microdata for the list item inner element.
+* The `breadcrumb_trail_inline_style` filter hook for changing or disabling the inline style.
+
+### Changed
+
+* Changes default search label to `Search results for: %s` to avoid double quotes (search queries sometimes have quotes in them).
+
+### Fixed
+
+* Properly reverse term parents array (in wrong order before).
+* Uses `wp_list_sort()` for sorting terms, available since WP 4.7.
+* Wraps `home_url()` in `user_trailingslashit()` to make sure it has a trailing slash when it should.
+
 ## [1.0.0] - 2015-07-07
 
 ### Added
